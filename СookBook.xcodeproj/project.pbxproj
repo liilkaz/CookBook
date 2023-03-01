@@ -14,6 +14,7 @@
 		7504A49529AB80CE00732F40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7504A49329AB80CE00732F40 /* LaunchScreen.storyboard */; };
 		7504A4A429AB83E800732F40 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A4A329AB83E800732F40 /* RecipeViewController.swift */; };
 		B32DA5FB29AF5B8200607885 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32DA5FA29AF5B8200607885 /* CategoriesViewController.swift */; };
+		B32DA5FD29AF5C4500607885 /* CategoriesLabelAndImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32DA5FC29AF5C4500607885 /* CategoriesLabelAndImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		7504A49629AB80CE00732F40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7504A4A329AB83E800732F40 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		B32DA5FA29AF5B8200607885 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		B32DA5FC29AF5C4500607885 /* CategoriesLabelAndImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesLabelAndImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		B32DA5F929AF5B4400607885 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B32DA5FC29AF5C4500607885 /* CategoriesLabelAndImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				7504A48D29AB80CD00732F40 /* MainViewController.swift in Sources */,
 				7504A48929AB80CD00732F40 /* AppDelegate.swift in Sources */,
 				7504A48B29AB80CD00732F40 /* SceneDelegate.swift in Sources */,
+				B32DA5FD29AF5C4500607885 /* CategoriesLabelAndImageView.swift in Sources */,
 				7504A4A429AB83E800732F40 /* RecipeViewController.swift in Sources */,
 				B32DA5FB29AF5B8200607885 /* CategoriesViewController.swift in Sources */,
 			);
