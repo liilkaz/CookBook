@@ -12,7 +12,6 @@
 		7504A48D29AB80CD00732F40 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A48C29AB80CD00732F40 /* MainViewController.swift */; };
 		7504A49229AB80CE00732F40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7504A49129AB80CE00732F40 /* Assets.xcassets */; };
 		7504A4A429AB83E800732F40 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A4A329AB83E800732F40 /* RecipeViewController.swift */; };
-		CCADCC7F29AE4D2700D87FF6 /* IDETemplateMacros.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCADCC7E29AE4D2700D87FF6 /* IDETemplateMacros.plist */; };
 		CCADCC8329AE4E0900D87FF6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCADCC8229AE4E0900D87FF6 /* Coordinator.swift */; };
 		CCADCC8529AE4F0300D87FF6 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCADCC8429AE4F0300D87FF6 /* MainCoordinator.swift */; };
 		CCADCC8729AE609E00D87FF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCADCC8629AE609E00D87FF6 /* TabBarController.swift */; };
@@ -37,7 +36,6 @@
 		7504A49129AB80CE00732F40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7504A49629AB80CE00732F40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7504A4A329AB83E800732F40 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
-		CCADCC7E29AE4D2700D87FF6 /* IDETemplateMacros.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = IDETemplateMacros.plist; path = "СookBook/IDETemplateMacros.plist"; sourceTree = SOURCE_ROOT; };
 		CCADCC8229AE4E0900D87FF6 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCADCC8429AE4F0300D87FF6 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		CCADCC8629AE609E00D87FF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 			children = (
 				7504A49629AB80CE00732F40 /* Info.plist */,
 				7504A49129AB80CE00732F40 /* Assets.xcassets */,
-				CCADCC7E29AE4D2700D87FF6 /* IDETemplateMacros.plist */,
 				7504A48829AB80CD00732F40 /* AppDelegate.swift */,
 				7504A48A29AB80CD00732F40 /* SceneDelegate.swift */,
 				7504A49E29AB81F200732F40 /* Model */,
@@ -223,7 +220,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCADCC7F29AE4D2700D87FF6 /* IDETemplateMacros.plist in Resources */,
 				7504A49229AB80CE00732F40 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
