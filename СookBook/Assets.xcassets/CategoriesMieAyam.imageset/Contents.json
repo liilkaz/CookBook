@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Image.png",
+      "filename" : "CategoriesMieAyam.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Image 1.png",
+      "filename" : "CategoriesMieAyam 1.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Image 2.png",
+      "filename" : "CategoriesMieAyam 2.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }

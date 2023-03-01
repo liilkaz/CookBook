@@ -15,6 +15,8 @@
 		7504A4A429AB83E800732F40 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A4A329AB83E800732F40 /* RecipeViewController.swift */; };
 		B32DA5FB29AF5B8200607885 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32DA5FA29AF5B8200607885 /* CategoriesViewController.swift */; };
 		B32DA5FD29AF5C4500607885 /* CategoriesLabelAndImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32DA5FC29AF5C4500607885 /* CategoriesLabelAndImageView.swift */; };
+		B32DA5FF29AF659100607885 /* CategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32DA5FE29AF659100607885 /* CategoriesCollectionView.swift */; };
+		B32DA60229AF670100607885 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32DA60129AF670100607885 /* CategoriesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		7504A4A329AB83E800732F40 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		B32DA5FA29AF5B8200607885 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		B32DA5FC29AF5C4500607885 /* CategoriesLabelAndImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesLabelAndImageView.swift; sourceTree = "<group>"; };
+		B32DA5FE29AF659100607885 /* CategoriesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionView.swift; sourceTree = "<group>"; };
+		B32DA60129AF670100607885 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,9 +96,19 @@
 		B32DA5F929AF5B4400607885 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B32DA60029AF66D000607885 /* Cells */,
 				B32DA5FC29AF5C4500607885 /* CategoriesLabelAndImageView.swift */,
+				B32DA5FE29AF659100607885 /* CategoriesCollectionView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B32DA60029AF66D000607885 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B32DA60129AF670100607885 /* CategoriesCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,9 +183,11 @@
 			files = (
 				7504A48D29AB80CD00732F40 /* MainViewController.swift in Sources */,
 				7504A48929AB80CD00732F40 /* AppDelegate.swift in Sources */,
+				B32DA60229AF670100607885 /* CategoriesCollectionViewCell.swift in Sources */,
 				7504A48B29AB80CD00732F40 /* SceneDelegate.swift in Sources */,
 				B32DA5FD29AF5C4500607885 /* CategoriesLabelAndImageView.swift in Sources */,
 				7504A4A429AB83E800732F40 /* RecipeViewController.swift in Sources */,
+				B32DA5FF29AF659100607885 /* CategoriesCollectionView.swift in Sources */,
 				B32DA5FB29AF5B8200607885 /* CategoriesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
