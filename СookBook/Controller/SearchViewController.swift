@@ -1,13 +1,13 @@
 //
-//  ViewController.swift
+//  SearchViewController.swift
 //  СookBook
 //
-//  Created by Лилия Феодотова on 26.02.2023.
+//  Created by Vladimir V. on 28.02.2023.
 //
 
-import UIKit
+import SwiftUI
 
-class MainViewController: UIViewController, Coordinating {
+final class SearchViewController: UIViewController, Coordinating {
     
     var coordinator: Coordinator?
     
@@ -20,7 +20,3 @@ class MainViewController: UIViewController, Coordinating {
         
     }
 }
-
-
-
-
