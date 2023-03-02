@@ -33,4 +33,7 @@ final class ListRecipeViewController: UIViewController, Coordinating {
     func didUpdateView() {
         
     }
+    func didUpdateImage(imageString: String) {
+        print(imageString)
+    }
 }

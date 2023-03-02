@@ -29,15 +29,18 @@ protocol Coordinator {
     var children : [Coordinator]? {get set}
     var cookManager: CookManager? {get set}
     var activeViewController: UIViewController? {get set}
+    var imagesDictionary: Dictionary<String, UIImage> {get}
     
     func start()
     func eventOccurred(with type: Event, recipe: RecipeData)
     func addController(type: TypeViewController, controller: Coordinating)
+    func getImage(_ urlString: String) -> UIImage
 }
 
 protocol Coordinating {
     var coordinator: Coordinator? {get set}
     func didUpdateView()
+    func didUpdateImage(imageString: String)
 }
 
 extension Coordinator {
