@@ -30,6 +30,8 @@
 		CCB6A1B429B074F60012E0E8 /* CategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6A1B229B074F60012E0E8 /* CategoriesCollectionView.swift */; };
 		CCB6A1B529B074F60012E0E8 /* CategoriesLabelAndImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6A1B329B074F60012E0E8 /* CategoriesLabelAndImageView.swift */; };
 		CCB6A1B729B0759D0012E0E8 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6A1B629B0759D0012E0E8 /* CategoriesCollectionViewCell.swift */; };
+		CCE1DBD529B1014200061C24 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */; };
+		CCE1DBD729B1037C00061C24 /* RecipeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1DBD629B1037C00061C24 /* RecipeTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		CCB6A1B229B074F60012E0E8 /* CategoriesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionView.swift; sourceTree = "<group>"; };
 		CCB6A1B329B074F60012E0E8 /* CategoriesLabelAndImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesLabelAndImageView.swift; sourceTree = "<group>"; };
 		CCB6A1B629B0759D0012E0E8 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
+		CCE1DBD629B1037C00061C24 /* RecipeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 				CCB6A1B329B074F60012E0E8 /* CategoriesLabelAndImageView.swift */,
 				CCADCC8B29AE7D7000D87FF6 /* RecipeImageView.swift */,
 				CCB6A1AC29AF4A8D0012E0E8 /* RecipeViewCell.swift */,
+				CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */,
+				CCE1DBD629B1037C00061C24 /* RecipeTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -246,10 +252,12 @@
 				CCB6A1A929AF3DDC0012E0E8 /* CookModel.swift in Sources */,
 				7504A48929AB80CD00732F40 /* AppDelegate.swift in Sources */,
 				CCB6A1AD29AF4A8D0012E0E8 /* RecipeViewCell.swift in Sources */,
+				CCE1DBD529B1014200061C24 /* SearchHeaderView.swift in Sources */,
 				CCADCC8C29AE7D7000D87FF6 /* RecipeImageView.swift in Sources */,
 				CCADCC8E29AE815600D87FF6 /* CategorieViewController.swift in Sources */,
 				CCADCC9429AE989E00D87FF6 /* ListRecipeViewController.swift in Sources */,
 				CCADCC8329AE4E0900D87FF6 /* Coordinator.swift in Sources */,
+				CCE1DBD729B1037C00061C24 /* RecipeTableView.swift in Sources */,
 				CCB6A1B029AFA3740012E0E8 /* UIImageView + Extensions.swift in Sources */,
 				7504A48B29AB80CD00732F40 /* SceneDelegate.swift in Sources */,
 				CCADCC9229AE81E100D87FF6 /* FavoriteViewController.swift in Sources */,

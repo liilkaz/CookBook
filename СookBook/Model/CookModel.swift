@@ -12,6 +12,7 @@ struct CookModel {
     let id: Int = 9
     var popularRecipes:[RecipeData] = []
     var favoriteRecipes:[RecipeData] = []
+    var searchRecipes:[RecipeData] = []
     var lastActiveRecipes:[RecipeData] = []
     
     // true - was added & false - was removed
@@ -29,6 +30,5 @@ struct CookModel {
         }
         self.favoriteRecipes.remove(at: index)
         return false
-
     }
 }

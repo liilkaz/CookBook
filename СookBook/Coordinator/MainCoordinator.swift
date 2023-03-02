@@ -96,10 +96,15 @@ final class MainCoordinator: Coordinator {
 
 
 extension MainCoordinator: CookManagerDelegate {
+    func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData]) {
+        self.cookManager!.cookData.searchRecipes = recipes
+        self.updateActiveViewController()
+    }
+    
     func didUpdateRecipe(_ cookManager: CookManager, recipe: RecipeData) {
         print("didUpdateRecipe")
-        
     }
+    
     func didUpdatePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData]) {
         for item in recipes {
             self.addImage(item.image)

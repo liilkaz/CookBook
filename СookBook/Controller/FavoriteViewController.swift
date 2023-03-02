@@ -7,82 +7,37 @@
 
 import UIKit
 
-final class FavoriteViewController: UIViewController, RecipeViewDelegate, Coordinating {
+final class FavoriteViewController: UIViewController, Coordinating {
     
     var coordinator: Coordinator?
-    var tableViewController = UITableViewController(style: .plain)
-    var cellIndentifier = "Cell"
-    var arrayItems:[RecipeData] = []
+    var recipeTableView: RecipeTableView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        tableViewController.tableView.backgroundColor = .clear
-        createTable()
-        view.addSubview(tableViewController.tableView)
-        tableViewController.tableView.translatesAutoresizingMaskIntoConstraints = false
+        recipeTableView = RecipeTableView()
+        view.addSubview(recipeTableView!)
+        recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            tableViewController.tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            tableViewController.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            tableViewController.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            tableViewController.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            recipeTableView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            recipeTableView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-        arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
-    }
-
-    func createTable() {
-        tableViewController.tableView.separatorColor = UIColor.green
-        tableViewController.tableView.frame = view.bounds
-        tableViewController.tableView.rowHeight = 100
-        tableViewController.tableView.register(RecipeViewCell.self, forCellReuseIdentifier: cellIndentifier)
-        tableViewController.tableView.delegate = self
-        tableViewController.tableView.dataSource = self
+        recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
+        recipeTableView?.coordinator = coordinator
     }
     
-    @objc func pushRecipeImage() {
-        coordinator?.eventOccurred(with: .recipeTapped)
-    }
-    
-    @objc func didTapButton() {
-        //coordinator?.eventOccurred(with: .buttonTapped)
-    }
     func didUpdateView() {
-        arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
+        recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
         DispatchQueue.main.async {
-            self.tableViewController.tableView.reloadData()
+            self.recipeTableView?.tableViewController.tableView.reloadData()
         }
-    }
-    func pushCheckFavorite(recipe: RecipeData) {
-        coordinator?.eventOccurred(with: .favoriteTapped, recipe: recipe)
     }
     func didUpdateImage(imageString: String) {
-        print(imageString)
+       // <#code#>
     }
 }
-
-
-extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayItems.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath) as? RecipeViewCell {
-            let recipe = arrayItems[indexPath.row]
-            cell.viewCell?.recipeViewDelegate = self
-            cell.refresh(recipe)
-            cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe.image))! )
-            return cell
-        }
-        return UITableViewCell()
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // _ = tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath)
-        coordinator?.eventOccurred(with: .recipeTapped, recipe: arrayItems[indexPath.row])
-    }
-}
-
 
 extension UIView {
     func addLabelText(_ text: String) {
@@ -93,24 +48,4 @@ extension UIView {
         label.textColor = .black
     }
 }
-
-
-extension FavoriteViewController {
-    func didUpdateRecipe(recipe: RecipeData) {
-        print("didUpdateRecipe")
-    }
-    
-    func didUpdateTableData() {
-        print("didUpdateTableData")
-        arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
-        DispatchQueue.main.async {
-            self.tableViewController.tableView.reloadData()
-        }
-    }
-    
-    func didFailWithError(error: Error) {
-        print("didFailWithError")
-    }
-}
-
 
