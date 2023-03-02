@@ -51,7 +51,7 @@ class TabBarController: UITabBarController {
             let navVC = UINavigationController()
             let mainCoordinator = MainCoordinator()
             mainCoordinator.navigationController = navVC
-            let categorieVC = CategorieViewController()
+            let categorieVC = CategoriesViewController()
             categorieVC.coordinator = mainCoordinator
             navVC.setViewControllers([categorieVC], animated: false)
             navVC.tabBarItem.title = "Categorie"

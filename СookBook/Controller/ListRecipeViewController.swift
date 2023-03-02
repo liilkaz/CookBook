@@ -28,7 +28,7 @@ final class ListRecipeViewController: UIViewController, Coordinating {
     }
     
     @objc func pushRecipeImage() {
-        coordinator?.eventOccurred(with: .recipeTapped)
+        
     }
     func didUpdateView() {
         
