@@ -13,6 +13,8 @@ import UIKit
 
 final class MainCoordinator: Coordinator {
     private var viewControllers = Dictionary<TypeViewController, Coordinating>()
+    
+    var imagesDictionary = Dictionary<String, UIImage>()
     var cookManager: CookManager? = nil
     var navigationController: UINavigationController?
     var children: [Coordinator]? = nil
@@ -51,7 +53,6 @@ final class MainCoordinator: Coordinator {
         vc.coordinator = self
         navigationController?.setViewControllers([vc], animated: false)
         cookManager?.delegate = self
-        
         cookManager!.fetchPopularRecipe()
     }
     
@@ -65,6 +66,32 @@ final class MainCoordinator: Coordinator {
         }
         viewControllers[type] = controller
     }
+    
+    func getImage(_ urlString: String) -> UIImage {
+        if !imagesDictionary.keys.contains(urlString) {
+            self.load(urlString: urlString)
+            return UIImage()
+        }
+        return imagesDictionary[urlString]!
+    }
+    
+    private func addImage(_ urlString: String) {
+        if !imagesDictionary.keys.contains(urlString) {
+            self.load(urlString: urlString)
+        }
+    }
+        
+    private func load(urlString: String) {
+        let url = URL(string: urlString)!
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                DispatchQueue.main.async {
+                    self?.imagesDictionary[urlString] = UIImage(data:  data)!
+                    self?.updateActiveViewController()
+                }
+            }
+        }
+    }
 }
 
 
@@ -74,15 +101,22 @@ extension MainCoordinator: CookManagerDelegate {
         
     }
     func didUpdatePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData]) {
+        for item in recipes {
+            self.addImage(item.image)
+        }
         self.cookManager!.cookData.popularRecipes = recipes
         self.cookManager!.cookData.favoriteRecipes = recipes
         print("didUpdatePopularRecipesData <<---- ToDo")
+        self.updateActiveViewController()
+    }
+    
+    func updateActiveViewController() {
         guard let vc = (activeViewController as? Coordinating) else { return }
         vc.didUpdateView()
     }
     
     func didFailWithError(error: Error) {
         print("didFailWithError")
-        
     }
+    
 }

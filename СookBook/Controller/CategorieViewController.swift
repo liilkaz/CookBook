@@ -34,4 +34,7 @@ final class CategorieViewController: UIViewController, Coordinating {
     func didUpdateView() {
         
     }
+    func didUpdateImage(imageString: String) {
+        print(imageString)
+    }
 }

@@ -11,13 +11,13 @@ final class RecipeViewController: UIViewController, RecipeViewDelegate, Coordina
     
     var coordinator: Coordinator?
     var recipe: RecipeData?
+    var viewCell = RecipeView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
         view.addLabelText((self.tabBarItem.title ?? "RecipeViewController"))
         
-        let viewCell =  RecipeView()
         viewCell.recipeViewDelegate = self
         viewCell.reloadRecipe(recipe: recipe!)
         viewCell.translatesAutoresizingMaskIntoConstraints = false
@@ -28,10 +28,21 @@ final class RecipeViewController: UIViewController, RecipeViewDelegate, Coordina
                 viewCell.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 5),
                 viewCell.heightAnchor.constraint(equalTo: view.widthAnchor, constant: 5),
         ])
+        viewCell.updateImage(image: (coordinator?.getImage(recipe!.image))! )
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewCell.updateImage(image: (coordinator?.getImage(recipe!.image))! )
     }
     func didUpdateView() {
-        print("didUpdateView")
+        viewCell.updateImage(image: (coordinator?.getImage(recipe!.image))! )
     }
+    
+    func didUpdateImage(imageString: String) {
+        print(imageString)
+        viewCell.updateImage(image: (coordinator?.getImage(imageString))! )
+    }
+    
     
     func pushCheckFavorite(recipe: RecipeData) {
         coordinator?.eventOccurred(with: .favoriteTapped, recipe: recipe)

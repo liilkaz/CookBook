@@ -1,7 +1,7 @@
 import UIKit
 
 class CategoriesViewController: UIViewController, CategoriesCollectionViewDelegate, Coordinating {
-        
+            
     var coordinator: Coordinator?
     
     private let categoriesLabelAndImageView = CategoriesLabelAndImageView()
@@ -22,6 +22,9 @@ class CategoriesViewController: UIViewController, CategoriesCollectionViewDelega
     }
     func didUpdateView() {
         
+    }
+    func didUpdateImage(imageString: String) {
+        print(imageString)
     }
     func pushCategorieList() {
         coordinator?.eventOccurred(with: .listRecipeTapped)
