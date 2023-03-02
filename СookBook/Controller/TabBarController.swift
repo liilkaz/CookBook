@@ -8,15 +8,6 @@
 import Foundation
 import UIKit
 
-enum TypeViewController {
-    case launchScreenVC
-    case recipeVC
-    case homeVC
-    case categoriesVC
-    case searchVC
-    case favoriteVC
-}
-
 class TabBarController: UITabBarController {
     var coordinator: Coordinator?
     
@@ -67,6 +58,7 @@ class TabBarController: UITabBarController {
             (vc as! FavoriteViewController).coordinator = coordinator
             vc?.tabBarItem.title = "Favorite"
             vc?.tabBarItem.image = UIImage(named: "Favorite")
+            self.coordinator?.addController(type: .favoriteVC, controller: vc as! Coordinating)
         default:
             print("Error!!")
         }

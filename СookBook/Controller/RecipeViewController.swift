@@ -7,7 +7,8 @@
 
 import UIKit
 
-class RecipeViewController: UIViewController, Coordinating {
+final class RecipeViewController: UIViewController, RecipeViewDelegate, Coordinating {
+    
     var coordinator: Coordinator?
     var recipe: RecipeData?
     
@@ -17,6 +18,7 @@ class RecipeViewController: UIViewController, Coordinating {
         view.addLabelText((self.tabBarItem.title ?? "RecipeViewController"))
         
         let viewCell =  RecipeView()
+        viewCell.recipeViewDelegate = self
         viewCell.reloadRecipe(recipe: recipe!)
         viewCell.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(viewCell)
@@ -29,5 +31,9 @@ class RecipeViewController: UIViewController, Coordinating {
     }
     func didUpdateView() {
         print("didUpdateView")
+    }
+    
+    func pushCheckFavorite(recipe: RecipeData) {
+        coordinator?.eventOccurred(with: .favoriteTapped, recipe: recipe)
     }
 }

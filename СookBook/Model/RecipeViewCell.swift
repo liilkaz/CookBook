@@ -7,8 +7,8 @@
 
 import UIKit
 
-class RecipeViewCell: UITableViewCell {
-
+class RecipeViewCell: UITableViewCell, RecipeViewDelegate {
+    
     var textInformation: UILabel = {
        let textLabel = UILabel()
         textLabel.text = "Text"
@@ -25,6 +25,7 @@ class RecipeViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         viewCell =  RecipeView()
+        viewCell?.recipeViewDelegate = self
         contentView.addSubview(viewCell!)
         viewCell!.translatesAutoresizingMaskIntoConstraints = false
 
@@ -48,4 +49,7 @@ class RecipeViewCell: UITableViewCell {
         viewCell!.reloadRecipe(recipe: recipe)
     }
 
+    func pushCheckFavorite(recipe: RecipeData) {
+        print("RecipeViewCell")
+    }
 }

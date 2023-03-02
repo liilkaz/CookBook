@@ -12,6 +12,16 @@ enum Event {
     case startTapped
     case recipeTapped
     case listRecipeTapped
+    case favoriteTapped
+}
+
+enum TypeViewController {
+    case launchScreenVC
+    case recipeVC
+    case homeVC
+    case categoriesVC
+    case searchVC
+    case favoriteVC
 }
 
 protocol Coordinator {
@@ -22,6 +32,7 @@ protocol Coordinator {
     
     func start()
     func eventOccurred(with type: Event, recipe: RecipeData)
+    func addController(type: TypeViewController, controller: Coordinating)
 }
 
 protocol Coordinating {

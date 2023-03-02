@@ -8,8 +8,15 @@
 import Foundation
 import UIKit
 
+protocol RecipeViewDelegate {
+    func pushCheckFavorite(recipe: RecipeData) //toDoStruct
+}
+
 final class RecipeView: UIView {
-    //let recipe: RecipeData
+    private var recipe = RecipeData(id: 1, title: "", image: "", imageType: "")
+    
+    
+    var recipeViewDelegate: RecipeViewDelegate?
     
     var textInformation: UILabel = {
        let textLabel = UILabel()
@@ -71,12 +78,12 @@ final class RecipeView: UIView {
         ])
     }
     func reloadRecipe(recipe: RecipeData) {
-        self.textInformation.text = recipe.title
+        self.recipe = recipe
+        self.textInformation.text = self.recipe.title
         self.recipeImage.load(url: URL(string: recipe.image)!)
     }
     
     @objc func pushFavoriteButton() {
-        print("pushFavoriteButton")
-        
+        recipeViewDelegate?.pushCheckFavorite(recipe: self.recipe)
     }
 }

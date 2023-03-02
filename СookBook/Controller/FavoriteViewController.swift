@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FavoriteViewController: UIViewController, Coordinating {
+final class FavoriteViewController: UIViewController, RecipeViewDelegate, Coordinating {
     
     var coordinator: Coordinator?
     var tableViewController = UITableViewController(style: .plain)
@@ -28,7 +28,7 @@ final class FavoriteViewController: UIViewController, Coordinating {
             tableViewController.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableViewController.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-        arrayItems = (coordinator?.cookManager?.cookData.popularRecipes)!
+        arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
     }
 
     func createTable() {
@@ -48,10 +48,13 @@ final class FavoriteViewController: UIViewController, Coordinating {
         //coordinator?.eventOccurred(with: .buttonTapped)
     }
     func didUpdateView() {
-        arrayItems = (coordinator?.cookManager?.cookData.popularRecipes)!
+        arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
         DispatchQueue.main.async {
             self.tableViewController.tableView.reloadData()
         }
+    }
+    func pushCheckFavorite(recipe: RecipeData) {
+        coordinator?.eventOccurred(with: .favoriteTapped, recipe: recipe)
     }
 }
 
@@ -63,6 +66,7 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath) as? RecipeViewCell {
+            cell.viewCell?.recipeViewDelegate = self
             cell.refresh(arrayItems[indexPath.row])
             return cell
         }
@@ -92,8 +96,8 @@ extension FavoriteViewController {
     }
     
     func didUpdateTableData() {
-        print("didUpdatePopularRecipesData")
-        arrayItems = (coordinator?.cookManager?.cookData.popularRecipes)!
+        print("didUpdateTableData")
+        arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
         DispatchQueue.main.async {
             self.tableViewController.tableView.reloadData()
         }

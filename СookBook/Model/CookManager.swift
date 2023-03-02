@@ -86,5 +86,8 @@ final class CookManager {
             return "http://135.181.99.110:8080/recipes/715449/information?apiKey=your_key"
         }
     }
+    func checkFavoriteRecipe(recipe: RecipeData) {
+        _ = cookData.addOrRemoveFavoriteRecipe(recipe)
+    }
     
 }
