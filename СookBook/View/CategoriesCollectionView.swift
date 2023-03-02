@@ -1,10 +1,15 @@
 import UIKit
 
+protocol CategoriesCollectionViewDelegate {
+    func pushCategorieList() //toDoStruct
+}
+
 class CategoriesCollectionView: UICollectionView {
     
     private let collectionViewFlowLayout = UICollectionViewFlowLayout()
     private let cellId = "cellId"
     private let cell = CategoriesCollectionViewCell()
+    var categorieListDelegat: CategoriesCollectionViewDelegate?
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
@@ -50,7 +55,7 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
 
 extension CategoriesCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected")
+        categorieListDelegat?.pushCategorieList()
     }
 }
 

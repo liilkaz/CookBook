@@ -16,11 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
-        window?.rootViewController = CategoriesViewController()
-
-        window?.rootViewController = RecipeViewController()
-
+        let navVC = UINavigationController()
+        navVC.isNavigationBarHidden = true
+        let coordinator = MainCoordinator()
+        coordinator.navigationController = navVC
+        coordinator.cookManager = CookManager()
+    
+        window?.rootViewController = navVC
         window?.makeKeyAndVisible()
+        
+        coordinator.start()
     }
 }
 

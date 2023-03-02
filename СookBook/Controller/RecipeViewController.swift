@@ -9,10 +9,12 @@ import UIKit
 
 
 
-class RecipeViewController: UIViewController {
+class RecipeViewController: UIViewController , RecipeViewDelegate, Coordinating {
     let tags = ["240 calories","40 min","Easy","serves 2"]
     let ingridients = ["All purpose flour","sugar","large egg","Whole milk,warm"]
     let ingridientsAmount = ["280g","7 tablespoons","6","720g(3 cups)"]
+    var coordinator: Coordinator?
+    var recipe: RecipeData?
     let scrollView: UIScrollView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -55,7 +57,7 @@ class RecipeViewController: UIViewController {
         return $0
     }(UILabel())
     let line = UIView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -96,59 +98,68 @@ class RecipeViewController: UIViewController {
             cell.addArrangedSubview(ingridientAmountLabel)
         }
     }
-}
-//MARK: setting up constaraints
-extension RecipeViewController{
-    func setupConstraints(){
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
-            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-        scrollView.addSubview(mainStack)
-        NSLayoutConstraint.activate([
-            mainStack.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            mainStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            mainStack.widthAnchor.constraint(equalTo: view.widthAnchor,multiplier: 0.90),
-            mainStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2.0)
-        ])
-        mainStack.addSubview(titleLabel)
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: mainStack.topAnchor,constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: mainStack.trailingAnchor, multiplier: -2)
-        ])
-        mainStack.addSubview(tagsStack)
-        NSLayoutConstraint.activate([
-            tagsStack.heightAnchor.constraint(equalToConstant: 20),
-            tagsStack.topAnchor.constraint(equalToSystemSpacingBelow: mainStack.topAnchor, multiplier: 40),
-            tagsStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
-            tagsStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor)
-        ])
-        mainStack.addSubview(recipeImage)
-        NSLayoutConstraint.activate([
-            recipeImage.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 1),
-            recipeImage.bottomAnchor.constraint(equalTo: tagsStack.topAnchor),
-            recipeImage.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
-            recipeImage.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
-        ])
-        mainStack.addSubview(line)
-        line.translatesAutoresizingMaskIntoConstraints = false
-        line.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
-        line.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        line.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        line.topAnchor.constraint(equalTo: tagsStack.bottomAnchor,constant: 20).isActive = true
-        line.backgroundColor = .gray
-        mainStack.addSubview(recipeIngerdientStack)
-        NSLayoutConstraint.activate([
-            recipeIngerdientStack.topAnchor.constraint(equalToSystemSpacingBelow: line.bottomAnchor, multiplier: 1),
-            recipeIngerdientStack.heightAnchor.constraint(equalTo: mainStack.heightAnchor, multiplier: 0.15),
-            recipeIngerdientStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
-            recipeIngerdientStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
-        ])
+        func didUpdateView() {
+            print("didUpdateView")
+        }
+        
+        func pushCheckFavorite(recipe: RecipeData) {
+            coordinator?.eventOccurred(with: .favoriteTapped, recipe: recipe)
+        }
     }
-}
+
+    //MARK: setting up constaraints
+    extension RecipeViewController{
+        func setupConstraints(){
+            view.addSubview(scrollView)
+            NSLayoutConstraint.activate([
+                scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+            scrollView.addSubview(mainStack)
+            NSLayoutConstraint.activate([
+                mainStack.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                mainStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                mainStack.widthAnchor.constraint(equalTo: view.widthAnchor,multiplier: 0.90),
+                mainStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2.0)
+            ])
+            mainStack.addSubview(titleLabel)
+            NSLayoutConstraint.activate([
+                titleLabel.topAnchor.constraint(equalTo: mainStack.topAnchor,constant: 16),
+                titleLabel.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
+                titleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: mainStack.trailingAnchor, multiplier: -2)
+            ])
+            mainStack.addSubview(tagsStack)
+            NSLayoutConstraint.activate([
+                tagsStack.heightAnchor.constraint(equalToConstant: 20),
+                tagsStack.topAnchor.constraint(equalToSystemSpacingBelow: mainStack.topAnchor, multiplier: 40),
+                tagsStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
+                tagsStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor)
+            ])
+            mainStack.addSubview(recipeImage)
+            NSLayoutConstraint.activate([
+                recipeImage.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 1),
+                recipeImage.bottomAnchor.constraint(equalTo: tagsStack.topAnchor),
+                recipeImage.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
+                recipeImage.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
+            ])
+            mainStack.addSubview(line)
+            line.translatesAutoresizingMaskIntoConstraints = false
+            line.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
+            line.heightAnchor.constraint(equalToConstant: 1).isActive = true
+            line.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+            line.topAnchor.constraint(equalTo: tagsStack.bottomAnchor,constant: 20).isActive = true
+            line.backgroundColor = .gray
+            mainStack.addSubview(recipeIngerdientStack)
+            NSLayoutConstraint.activate([
+                recipeIngerdientStack.topAnchor.constraint(equalToSystemSpacingBelow: line.bottomAnchor, multiplier: 1),
+                recipeIngerdientStack.heightAnchor.constraint(equalTo: mainStack.heightAnchor, multiplier: 0.15),
+                recipeIngerdientStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
+                recipeIngerdientStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
+            ])
+        }
+    }
+    
 

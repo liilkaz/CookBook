@@ -1,6 +1,8 @@
 import UIKit
 
-class CategoriesViewController: UIViewController {
+class CategoriesViewController: UIViewController, CategoriesCollectionViewDelegate, Coordinating {
+        
+    var coordinator: Coordinator?
     
     private let categoriesLabelAndImageView = CategoriesLabelAndImageView()
     private let categoriesCollectionView = CategoriesCollectionView()
@@ -16,6 +18,13 @@ class CategoriesViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(categoriesLabelAndImageView)
         view.addSubview(categoriesCollectionView)
+        categoriesCollectionView.categorieListDelegat = self
+    }
+    func didUpdateView() {
+        
+    }
+    func pushCategorieList() {
+        coordinator?.eventOccurred(with: .listRecipeTapped)
     }
 }
 
