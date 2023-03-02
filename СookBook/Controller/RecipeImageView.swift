@@ -77,6 +77,11 @@ final class RecipeView: UIView {
             textInformation.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
         ])
     }
+    
+    func updateImage(image: UIImage) {
+        self.recipeImage.image = image
+    }
+    
     func reloadRecipe(recipe: RecipeData) {
         self.recipe = recipe
         self.textInformation.text = self.recipe.title

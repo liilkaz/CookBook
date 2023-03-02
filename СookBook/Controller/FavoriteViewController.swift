@@ -56,6 +56,9 @@ final class FavoriteViewController: UIViewController, RecipeViewDelegate, Coordi
     func pushCheckFavorite(recipe: RecipeData) {
         coordinator?.eventOccurred(with: .favoriteTapped, recipe: recipe)
     }
+    func didUpdateImage(imageString: String) {
+        print(imageString)
+    }
 }
 
 
@@ -66,8 +69,10 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath) as? RecipeViewCell {
+            let recipe = arrayItems[indexPath.row]
             cell.viewCell?.recipeViewDelegate = self
-            cell.refresh(arrayItems[indexPath.row])
+            cell.refresh(recipe)
+            cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe.image))! )
             return cell
         }
         return UITableViewCell()
