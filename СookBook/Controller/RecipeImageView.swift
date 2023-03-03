@@ -85,7 +85,7 @@ final class RecipeView: UIView {
     func reloadRecipe(recipe: RecipeData) {
         self.recipe = recipe
         self.textInformation.text = self.recipe.title
-        self.recipeImage.load(url: URL(string: recipe.image)!)
+//        self.recipeImage.load(url: URL(string: recipe.image)!)
     }
     
     @objc func pushFavoriteButton() {
