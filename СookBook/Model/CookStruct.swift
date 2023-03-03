@@ -13,6 +13,7 @@ struct RecipeData: Codable {
     let title: String
     let image: String
     let imageType: String
+    var favorite: Bool = false
 }
 
 extension RecipeData {

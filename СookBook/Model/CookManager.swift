@@ -12,12 +12,14 @@ enum TypeRequestURL {
     case popularRecipe
     case recipe
     case search
+    case typePopularRecpe
 }
 
 protocol CookManagerDelegate {
     func didUpdateRecipe(_ cookManager: CookManager, recipe: RecipeData)
     func didUpdatePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
     func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
+    func didUpdateTypePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData], typeMeal: TypeMeal)
     func didFailWithError(error: Error)
 }
 
@@ -36,10 +38,14 @@ final class CookManager {
     func fetchSearchRecipe(text: String) {
         performRequest(with: .search, searchText: text)
     }
+    func fetchTypePopularRecipe(type: TypeMeal) {
+        performRequest(with: .typePopularRecpe, searchText: type.rawValue, typeMeal: type)
+    }
     
-    func performRequest(with type: TypeRequestURL, searchText: String = "") {
+    func performRequest(with type: TypeRequestURL, searchText: String = "", typeMeal: TypeMeal? = nil) {
         let strType = getRequestURL(with: type)
         let urlString = String(format: strType, searchText)
+        print("URL: \(urlString)")
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
@@ -61,8 +67,14 @@ final class CookManager {
                         if let recipe = self.parseArrayJSON(safeData) {
                             self.delegate?.didUpdateSearchRecipesData(self, recipes: recipe)
                         }
-                        
+                    case .typePopularRecpe:
+                        if let recipe = self.parseArrayJSON(safeData) {
+                            DispatchQueue.main.async {
+                                self.delegate?.didUpdateTypePopularRecipesData(self, recipes: recipe, typeMeal: typeMeal!)
+                            }
+                        }
                     }
+                    
                 }
             }
             task.resume()
@@ -99,6 +111,8 @@ final class CookManager {
             return "http://135.181.99.110:8080/recipes/complexSearch?sort=popularity&query=%@&apiKey=your_key"
         case .recipe:
             return "http://135.181.99.110:8080/recipes/715449/information?apiKey=your_key"
+        case .typePopularRecpe:
+            return "http://135.181.99.110:8080/recipes/complexSearch?sort=popularity&type=%@&apiKey=your_key"
         }
     }
     func checkFavoriteRecipe(recipe: RecipeData) {

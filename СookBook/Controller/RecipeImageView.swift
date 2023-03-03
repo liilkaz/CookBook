@@ -32,13 +32,13 @@ final class RecipeView: UIView {
     private lazy var favoriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 10
-        let image = UIImage(named: "Favorite")
+        let image = UIImage(systemName: "star.circle.fill")
         let imageView = UIImageView(image: image)
-        button.addSubview(imageView)
         
+        button.addSubview(imageView)
         button.addTarget(self, action: #selector(pushFavoriteButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        
         return button
     }()
     
@@ -86,6 +86,11 @@ final class RecipeView: UIView {
         self.recipe = recipe
         self.textInformation.text = self.recipe.title
         self.recipeImage.load(url: URL(string: recipe.image)!)
+        if self.recipe.favorite {
+            favoriteButton.tintColor = .red
+        } else {
+            favoriteButton.tintColor = .white
+        }
     }
     
     @objc func pushFavoriteButton() {

@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 
-
-
-
 final class MainCoordinator: Coordinator {
     private var viewControllers = Dictionary<TypeViewController, Coordinating>()
     
@@ -55,6 +52,10 @@ final class MainCoordinator: Coordinator {
         navigationController?.setViewControllers([vc], animated: false)
         cookManager?.delegate = self
         cookManager!.fetchPopularRecipe()
+        
+        for typeMeal in TypeMeal.allCases {
+            cookManager!.fetchTypePopularRecipe(type: typeMeal)
+        }
     }
     
     func setActiveViewController(with viewController: UIViewController) {
@@ -93,12 +94,17 @@ final class MainCoordinator: Coordinator {
             }
         }
     }
+
+    func getRecipe(_ recipeId: Int) -> RecipeData {
+        return (cookManager?.cookData.recipeDict[recipeId])!
+    }
+    
 }
 
 
 extension MainCoordinator: CookManagerDelegate {
     func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData]) {
-        self.cookManager!.cookData.searchRecipes = recipes
+        self.cookManager!.cookData.setSearchRecipe(array: recipes)
         self.updateActiveViewController()
     }
     
@@ -110,10 +116,22 @@ extension MainCoordinator: CookManagerDelegate {
         for item in recipes {
             self.addImage(item.image)
         }
-        self.cookManager!.cookData.popularRecipes = recipes
-        self.cookManager!.cookData.favoriteRecipes = recipes
+        self.cookManager!.cookData.setPopularRecipes(array: recipes)
+        self.cookManager!.cookData.setFavoriteRecipes(array: recipes)
         print("didUpdatePopularRecipesData <<---- ToDo")
         self.updateActiveViewController()
+    }
+    
+    func didUpdateTypePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData], typeMeal: TypeMeal) {
+//        for item in recipes {
+//            
+//        }
+        self.addImage(recipes[0].image)
+        self.cookManager!.cookData.setTypeMealRecipes(typeMeal: typeMeal, array: recipes)
+//        self.cookManager!.cookData.setPopularRecipes(array: recipes)
+//        self.cookManager!.cookData.setFavoriteRecipes(array: recipes)
+        print("didUpdatePopularRecipesData <<---- ToDo")
+        //self.updateActiveViewController()
     }
     
     func updateActiveViewController() {
@@ -124,5 +142,4 @@ extension MainCoordinator: CookManagerDelegate {
     func didFailWithError(error: Error) {
         print("didFailWithError")
     }
-    
 }

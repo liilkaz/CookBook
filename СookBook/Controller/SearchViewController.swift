@@ -12,8 +12,7 @@ final class SearchViewController: UIViewController, Coordinating {
     var coordinator: Coordinator?
     var recipeTableView: RecipeTableView?
     var searchHeaderView: SearchHeaderView?
-    
-    var searchData:[RecipeData] = []
+    var searchData:[Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +43,15 @@ final class SearchViewController: UIViewController, Coordinating {
         recipeTableView?.coordinator = coordinator
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        recipeTableView!.reloadCell()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //recipeTableView!.reloadCell()
+    }
+
     @objc func serchPressed(_ sender: UIButton) {
         searchHeaderView!.searchField.endEditing(true)
     }
@@ -63,7 +71,6 @@ final class SearchViewController: UIViewController, Coordinating {
 extension SearchViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print(searchHeaderView!.searchField.text)
         searchHeaderView!.searchField.endEditing(true)
         return true
     }

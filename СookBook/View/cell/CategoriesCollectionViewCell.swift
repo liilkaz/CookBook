@@ -14,7 +14,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     private let categoriesLabel: UILabel = {
         let label = UILabel()
         label.text = "MieAyam"
-        label.textColor = .white
+        label.textColor = .black
         label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -39,6 +39,9 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     
     func setText(textLabel: String) {
         categoriesLabel.text = textLabel
+    }
+    func setImage(image: UIImage) {
+        backgroundImage.image = image
     }
 }
 

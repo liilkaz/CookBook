@@ -35,6 +35,7 @@ protocol Coordinator {
     func eventOccurred(with type: Event, recipe: RecipeData)
     func addController(type: TypeViewController, controller: Coordinating)
     func getImage(_ urlString: String) -> UIImage
+    func getRecipe(_ recipeId: Int) -> RecipeData
 }
 
 protocol Coordinating {

@@ -11,7 +11,7 @@ final class RecipeTableView: UIView {
     var coordinator: Coordinator?
     var tableViewController = UITableViewController(style: .plain)
     var cellIndentifier = "Cell"
-    var arrayItems:[RecipeData] = [RecipeData(id: 1, title: "Hello", image: "", imageType: "")]
+    var arrayItems:[Int] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,6 +46,30 @@ final class RecipeTableView: UIView {
         tableViewController.tableView.delegate = self
         tableViewController.tableView.dataSource = self
     }
+    func reloadCell() {
+        if arrayItems.count == 0 {
+            return
+        }
+        for indexRow in 0...arrayItems.count-1 {
+            let indexPath = IndexPath(row: indexRow, section: 0)
+            if let cell = tableViewController.tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath) as? RecipeViewCell {
+                let recipeId = arrayItems[indexRow]
+                let recipe = coordinator?.getRecipe(recipeId)
+                cell.refresh(recipe!)
+                cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.image))! )
+            }
+//            let cell = tableViewController.tableView.cellForRow(at: indexPath)
+//            guard let viewCell = (cell as? RecipeViewCell) else { return }
+//
+//
+//            let recipeId = arrayItems[indexRow]
+//            let recipe = coordinator?.getRecipe(recipeId)
+//            viewCell.refresh(recipe!)
+//            viewCell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.image))! )
+            //cell
+        }
+        
+    }
 }
 
 extension RecipeTableView: UITableViewDataSource, UITableViewDelegate {
@@ -55,17 +79,20 @@ extension RecipeTableView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath) as? RecipeViewCell {
-            let recipe = arrayItems[indexPath.row]
+            let recipeId = arrayItems[indexPath.row]
+            let recipe = coordinator?.getRecipe(recipeId)
             cell.viewCell?.recipeViewDelegate = self
-            cell.refresh(recipe)
-            cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe.image))! )
+            cell.refresh(recipe!)
+            cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.image))! )
             return cell
         }
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipeId = arrayItems[indexPath.row]
+        let recipe = coordinator?.getRecipe(recipeId)
        // _ = tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath)
-        coordinator?.eventOccurred(with: .recipeTapped, recipe: arrayItems[indexPath.row])
+        coordinator?.eventOccurred(with: .recipeTapped, recipe: recipe!)
     }
 }
 

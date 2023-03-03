@@ -115,7 +115,9 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         return cell
     }
     func didUpdateView() {
-        recipeImage.updateImage(image: (coordinator?.getImage(recipe!.image))! )
+        recipeImage.updateImage(image: (coordinator?.getImage(recipe!.image))!)
+        recipe = coordinator?.getRecipe(recipe!.id)
+        recipeImage.reloadRecipe(recipe: recipe!)
     }
     
     func didUpdateImage(imageString: String) {

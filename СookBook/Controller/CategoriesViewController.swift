@@ -18,7 +18,7 @@ class CategoriesViewController: UIViewController, Coordinating {
         view.addSubview(categoriesLabelAndImageView)
         view.addSubview(categoriesCollectionView)
         categoriesCollectionView.categorieListDelegat = self
-        categoriesCollectionView.setCategoriresTitle(arrayString: (coordinator?.cookManager?.cookData.meealTypeArray)!)
+        categoriesCollectionView.setCategoriresTitle(arrayString: (coordinator?.cookManager?.cookData.topMealItems())!)
         categoriesCollectionView.reloadData()
     }
     func didUpdateView() {
@@ -46,5 +46,9 @@ class CategoriesViewController: UIViewController, Coordinating {
 extension CategoriesViewController: CategoriesCollectionViewDelegate {
     func pushCategorieList() {
         coordinator?.eventOccurred(with: .listRecipeTapped)
+    }
+    func getImages(url: String) -> UIImage {
+        return coordinator?.getImage(url) ?? UIImage()
+        
     }
 }
