@@ -102,8 +102,8 @@ extension MainCoordinator: CookManagerDelegate {
         self.updateActiveViewController()
     }
     
-    func didUpdateRecipe(_ cookManager: CookManager, recipeInfo: [RecipeInfoData]) {
-        self.cookManager!.cookData.recipesInfoAbout = recipeInfo
+    func didUpdateRecipe(_ cookManager: CookManager, recipeInfoData: RecipeInfoData) {
+        self.cookManager!.cookData.recipesInfoAbout = recipeInfoData
         self.updateActiveViewController()
     }
     

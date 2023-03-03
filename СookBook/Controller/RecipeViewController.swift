@@ -100,7 +100,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         let cell = UIStackView()
         let ingridientLabel = UILabel()
         let ingridientAmountLabel = UILabel()
-        ingridientLabel.text = "\(coordinator!.cookManager!.fetchRecipe(recipeId: 1))"
+        ingridientLabel.text = "\(coordinator!.cookManager!.fetchRecipe(recipeId: recipe!.id))"
         ingridientAmountLabel.text = ""
         ingridientLabel.textColor = .black
         ingridientLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -14,11 +14,6 @@ struct RecipeData: Codable {
     let image: String
     let imageType: String
 }
-struct RecipeInfoData: Codable {
-    let id: Int
-    let nameClean: String
-    let amount: Int
-}
 
 extension RecipeData {
       init(from decoder: Decoder) throws {
@@ -29,39 +24,44 @@ extension RecipeData {
           imageType = try values.decode(String.self, forKey: .imageType)
       }
 }
-extension RecipeInfoData {
-      init(from decoder: Decoder) throws {
-          let values = try decoder.container(keyedBy: CodingKeys.self)
-          id = try values.decode(Int.self, forKey: .id)
-          nameClean = try values.decode(String.self, forKey: .nameClean)
-          amount = try values.decode(Int.self, forKey: .amount)
-          
-      }
+
+struct RecipeInfoData: Codable {
+    let id: Int
+    let title: String
+    let extendedIngredients: [RecipeIngridientsInfo]
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        title = try values.decode(String.self, forKey: .title)
+        extendedIngredients = try values.decode([RecipeIngridientsInfo].self, forKey: .extendedIngredients)
+    }
 }
 
+struct RecipeIngridientsInfo: Codable{
+    //let extendedIngredients: [RecipeInfoData]
+    let id: Int
+    let amount: Double
+    let unit: String
+    let meta: [String]
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        //extendedIngredients = try values.decode([RecipeInfoData].self, forKey: .extendedIngredients)
+        id = try values.decode(Int.self, forKey: .id)
+        amount = try values.decode(Double.self, forKey: .amount)
+        unit = try values.decode(String.self, forKey: .unit)
+        meta = try values.decode([String].self, forKey: .meta)
+    }
+}
 struct PopularRecipesData: Codable {
     let arrayRecipe: [RecipeData]
     
     enum CodingKeys: String, CodingKey {
         case arrayRecipe = "results"
     }
-}
-struct RecipeIngridientsInfo: Codable{
-    let extendedIngredients: [RecipeInfoData]
-    let idOfRecipe: Int
-}
-
-extension PopularRecipesData {
-      init(from decoder: Decoder) throws {
-          let values = try decoder.container(keyedBy: CodingKeys.self)
-          arrayRecipe = try values.decode([RecipeData].self, forKey: .arrayRecipe)
-      }
-}
-extension RecipeIngridientsInfo{
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        extendedIngredients = try values.decode([RecipeInfoData].self, forKey: .extendedIngredients)
-        idOfRecipe = try values.decode(Int.self, forKey: .idOfRecipe)
-
+        arrayRecipe = try values.decode([RecipeData].self, forKey: .arrayRecipe)
     }
 }

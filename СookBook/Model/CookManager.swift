@@ -15,7 +15,7 @@ enum TypeRequestURL {
 }
 
 protocol CookManagerDelegate {
-    func didUpdateRecipe(_ cookManager: CookManager, recipeInfo: [RecipeInfoData])
+    func didUpdateRecipe(_ cookManager: CookManager, recipeInfoData: RecipeInfoData)
     func didUpdatePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
     func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
     func didFailWithError(error: Error)
@@ -26,7 +26,7 @@ final class CookManager {
     var delegate: CookManagerDelegate?
     
     func fetchRecipe(recipeId: Int) {
-        performRequest(with: .recipe)
+        performRequest(with: .recipe, searchText: "\(recipeId)")
     }
     
     func fetchPopularRecipe() {
@@ -55,7 +55,7 @@ final class CookManager {
                         }
                     case .recipe:
                         if let recipe = self.parseRecipeJSON(safeData) {
-                            self.delegate?.didUpdateRecipe(self, recipeInfo: recipe)
+                            self.delegate?.didUpdateRecipe(self, recipeInfoData: recipe)
                         }
                     case .search:
                         if let recipe = self.parseArrayJSON(safeData) {
@@ -80,10 +80,10 @@ final class CookManager {
         }
     }
     
-    func parseRecipeJSON(_ cookData: Data) -> [RecipeInfoData]? {
+    func parseRecipeJSON(_ cookData: Data) -> RecipeInfoData? {
         let decoder = JSONDecoder()
         do {
-            let recipe = try decoder.decode([RecipeInfoData].self, from: cookData)
+            let recipe = try decoder.decode(RecipeInfoData.self, from: cookData)
             return recipe
         } catch {
             delegate?.didFailWithError(error: error)
@@ -98,7 +98,7 @@ final class CookManager {
         case .search:
             return "http://135.181.99.110:8080/recipes/complexSearch?sort=popularity&query=%@&apiKey=your_key"
         case .recipe:
-            return "http://135.181.99.110:8080/recipes/715449/information?apiKey=your_key"
+            return "http://135.181.99.110:8080/recipes/%@/information?apiKey=your_key"
         }
     }
     func checkFavoriteRecipe(recipe: RecipeData) {
