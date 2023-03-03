@@ -9,6 +9,7 @@ import UIKit
 
 
 final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordinating {
+    
     let tagsListString = ["240 calories","40 min","Easy","serves 2"]
     let ingridients = ["All purpose flour","sugar","large egg","Whole milk,warm"]
     let ingridientsAmount = ["280g","7 tablespoons","6","720g(3 cups)"]
@@ -115,11 +116,17 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         return cell
     }
     func didUpdateView() {
-//        recipeImage.updateImage(image: (coordinator?.getImage(recipe!.image))!)
-//            recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.searchRecipes)!
-//        DispatchQueue.main.async {
-//            self.recipeTableView!.tableViewController.tableView.reloadData()
-//        }
+        recipeImage.updateImage(image: (coordinator?.getImage(recipe!.image))!)
+       // recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.recipesInfoAbout)! take recipesInfoAbout to our array of Ingridients
+
+        DispatchQueue.main.async {
+            self.reloadData()
+        }
+    }
+    func reloadData(){
+        for index in 0..<(coordinator?.cookManager?.cookData.recipesInfoAbout?.extendedIngredients.count)!{
+            //reload info about ingridients
+        }
     }
     
     func didUpdateImage(imageString: String) {
