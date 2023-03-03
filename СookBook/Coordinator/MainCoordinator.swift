@@ -96,13 +96,14 @@ final class MainCoordinator: Coordinator {
 
 
 extension MainCoordinator: CookManagerDelegate {
+    
     func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData]) {
         self.cookManager!.cookData.searchRecipes = recipes
         self.updateActiveViewController()
     }
     
-    func didUpdateRecipe(_ cookManager: CookManager, recipe: [RecipeInfoData]) {
-        self.cookManager!.cookData.recipesInfoAbout = recipe
+    func didUpdateRecipe(_ cookManager: CookManager, recipeInfo: [RecipeInfoData]) {
+        self.cookManager!.cookData.recipesInfoAbout = recipeInfo
         self.updateActiveViewController()
     }
     

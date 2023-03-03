@@ -15,7 +15,7 @@ enum TypeRequestURL {
 }
 
 protocol CookManagerDelegate {
-    func didUpdateRecipe(_ cookManager: CookManager, recipe: RecipeInfoData)
+    func didUpdateRecipe(_ cookManager: CookManager, recipeInfo: [RecipeInfoData])
     func didUpdatePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
     func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
     func didFailWithError(error: Error)
@@ -55,7 +55,7 @@ final class CookManager {
                         }
                     case .recipe:
                         if let recipe = self.parseRecipeJSON(safeData) {
-                            self.delegate?.didUpdateRecipe(self, recipe: recipe)
+                            self.delegate?.didUpdateRecipe(self, recipeInfo: recipe)
                         }
                     case .search:
                         if let recipe = self.parseArrayJSON(safeData) {
@@ -80,10 +80,10 @@ final class CookManager {
         }
     }
     
-    func parseRecipeJSON(_ cookData: Data) -> RecipeInfoData? {
+    func parseRecipeJSON(_ cookData: Data) -> [RecipeInfoData]? {
         let decoder = JSONDecoder()
         do {
-            let recipe = try decoder.decode(RecipeInfoData.self, from: cookData)
+            let recipe = try decoder.decode([RecipeInfoData].self, from: cookData)
             return recipe
         } catch {
             delegate?.didFailWithError(error: error)

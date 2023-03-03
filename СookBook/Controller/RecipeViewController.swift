@@ -96,11 +96,11 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
             recipeIngerdientStack.addArrangedSubview(cell)
         }
     }
-    func createOneCellView(_ index: Int) -> UIView{
+    func createOneCellView(_ index: Int) -> UIView {
         let cell = UIStackView()
         let ingridientLabel = UILabel()
         let ingridientAmountLabel = UILabel()
-        ingridientLabel.text = "\(coordinator!.cookManager!.fetchRecipe(recipeId: <#T##Int#>))"
+        ingridientLabel.text = "\(coordinator!.cookManager!.fetchRecipe(recipeId: 1))"
         ingridientAmountLabel.text = ""
         ingridientLabel.textColor = .black
         ingridientLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -115,7 +115,11 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         return cell
     }
     func didUpdateView() {
-        recipeImage.updateImage(image: (coordinator?.getImage(recipe!.image))! )
+//        recipeImage.updateImage(image: (coordinator?.getImage(recipe!.image))!)
+//            recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.searchRecipes)!
+//        DispatchQueue.main.async {
+//            self.recipeTableView!.tableViewController.tableView.reloadData()
+//        }
     }
     
     func didUpdateImage(imageString: String) {
