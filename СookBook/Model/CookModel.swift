@@ -15,6 +15,20 @@ struct CookModel {
     var searchRecipes:[RecipeData] = []
     var lastActiveRecipes:[RecipeData] = []
     
+    let meealTypeArray = ["main course",
+                          "side dish",
+                          "dessert",
+                          "appetizer",
+                          "salad",
+                          "bread",
+                          "breakfast",
+                          "soup",
+                          "beverage",
+                          "sauce",
+                          "marinade",
+                          "fingerfood",
+                          "snack",
+                          "drink"]
     // true - was added & false - was removed
     mutating func addOrRemoveFavoriteRecipe(_ recipe: RecipeData)-> Bool {
         var index = 0

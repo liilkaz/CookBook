@@ -39,14 +39,16 @@ class TabBarController: UITabBarController {
             vc?.tabBarItem.image = UIImage(named: "Home")
             coordinator?.activeViewController = vc
         case .categoriesVC:
+            let newCoordinator = MainCoordinator()
             let navVC = UINavigationController()
-            let mainCoordinator = MainCoordinator()
-            mainCoordinator.navigationController = navVC
+            newCoordinator.navigationController = navVC
+
             let categorieVC = CategoriesViewController()
-            categorieVC.coordinator = mainCoordinator
+            categorieVC.coordinator = coordinator
             navVC.setViewControllers([categorieVC], animated: false)
             navVC.tabBarItem.title = "Categorie"
             navVC.tabBarItem.image = UIImage(named: "Categorie")
+            coordinator?.children?.append(newCoordinator)
             vc = navVC
         case .searchVC:
             vc = SearchViewController()

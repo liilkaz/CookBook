@@ -34,17 +34,18 @@ final class MainCoordinator: Coordinator {
             let vc = RecipeViewController()
             vc.coordinator = self
             vc.recipe = recipe
-            navigationController?.present(vc, animated: true)
+            children![0].navigationController!.present(vc, animated: true)
             activeViewController = vc
             activeTypeVC = .recipeVC
         case .listRecipeTapped:
             let vc = ListRecipeViewController()
-            navigationController?.pushViewController(vc, animated: true)
+            children![0].navigationController!.pushViewController(vc, animated: true)
             vc.coordinator = self
             activeViewController = vc
         case .favoriteTapped:
             cookManager!.checkFavoriteRecipe(recipe: recipe)
             viewControllers[.favoriteVC]!.didUpdateView()
+            self.updateActiveViewController()
         }
     }
     

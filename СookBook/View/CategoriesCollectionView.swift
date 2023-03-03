@@ -10,6 +10,7 @@ class CategoriesCollectionView: UICollectionView {
     private let cellId = "cellId"
     private let cell = CategoriesCollectionViewCell()
     var categorieListDelegat: CategoriesCollectionViewDelegate?
+    var mealTypeList: [String] = []
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
@@ -38,17 +39,21 @@ class CategoriesCollectionView: UICollectionView {
         delegate = self
         dataSource = self
     }
+    func setCategoriresTitle(arrayString: [String]) {
+        mealTypeList = arrayString
+    }
 }
 
 //MARK: - Extensions
 extension CategoriesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        18
+        self.mealTypeList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell()
         }
+        cell.setText(textLabel: mealTypeList[indexPath.row])
         return cell
     }
 }

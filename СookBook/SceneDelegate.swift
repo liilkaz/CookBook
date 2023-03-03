@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let coordinator = MainCoordinator()
         coordinator.navigationController = navVC
         coordinator.cookManager = CookManager()
-    
+        coordinator.children = []
+        
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()
         

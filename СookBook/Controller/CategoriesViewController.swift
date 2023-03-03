@@ -1,6 +1,6 @@
 import UIKit
 
-class CategoriesViewController: UIViewController, CategoriesCollectionViewDelegate, Coordinating {
+class CategoriesViewController: UIViewController, Coordinating {
             
     var coordinator: Coordinator?
     
@@ -9,7 +9,6 @@ class CategoriesViewController: UIViewController, CategoriesCollectionViewDelega
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         setConstraints()
     }
@@ -19,19 +18,16 @@ class CategoriesViewController: UIViewController, CategoriesCollectionViewDelega
         view.addSubview(categoriesLabelAndImageView)
         view.addSubview(categoriesCollectionView)
         categoriesCollectionView.categorieListDelegat = self
+        categoriesCollectionView.setCategoriresTitle(arrayString: (coordinator?.cookManager?.cookData.meealTypeArray)!)
+        categoriesCollectionView.reloadData()
     }
     func didUpdateView() {
         
     }
+    
     func didUpdateImage(imageString: String) {
         print(imageString)
     }
-    func pushCategorieList() {
-        coordinator?.eventOccurred(with: .listRecipeTapped)
-    }
-}
-
-extension CategoriesViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             categoriesLabelAndImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -44,5 +40,11 @@ extension CategoriesViewController {
             categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension CategoriesViewController: CategoriesCollectionViewDelegate {
+    func pushCategorieList() {
+        coordinator?.eventOccurred(with: .listRecipeTapped)
     }
 }

@@ -36,6 +36,10 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         addSubview(backgroundImage)
         contentView.addSubview(categoriesLabel)
     }
+    
+    func setText(textLabel: String) {
+        categoriesLabel.text = textLabel
+    }
 }
 
 extension CategoriesCollectionViewCell {
