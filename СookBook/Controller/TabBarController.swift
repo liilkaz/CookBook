@@ -33,8 +33,10 @@ class TabBarController: UITabBarController {
         var vc: UIViewController?
         switch type {
         case .homeVC:
-            vc = MainViewController()
-            (vc as! MainViewController).coordinator = coordinator
+//            vc = MainViewController()
+//            (vc as! MainViewController).coordinator = coordinator
+            vc = MainViewControllerD()
+            (vc as! MainViewControllerD).coordinator = coordinator
             vc?.tabBarItem.title = "Home"
             vc?.tabBarItem.image = UIImage(named: "Home")
             coordinator?.activeViewController = vc

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		285F417529B328D2009E5AB6 /* MainViewControllerD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F417429B328D2009E5AB6 /* MainViewControllerD.swift */; };
+		285F417729B32D53009E5AB6 /* MainViewD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F417629B32D53009E5AB6 /* MainViewD.swift */; };
 		7504A48929AB80CD00732F40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A48829AB80CD00732F40 /* AppDelegate.swift */; };
 		7504A48B29AB80CD00732F40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A48A29AB80CD00732F40 /* SceneDelegate.swift */; };
 		7504A48D29AB80CD00732F40 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A48C29AB80CD00732F40 /* MainViewController.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		285F417429B328D2009E5AB6 /* MainViewControllerD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerD.swift; sourceTree = "<group>"; };
+		285F417629B32D53009E5AB6 /* MainViewD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewD.swift; sourceTree = "<group>"; };
 		7504A48529AB80CD00732F40 /* СookBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "СookBook.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7504A48829AB80CD00732F40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7504A48A29AB80CD00732F40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 				CCADCC9129AE81E100D87FF6 /* FavoriteViewController.swift */,
 				CCADCC9329AE989E00D87FF6 /* ListRecipeViewController.swift */,
 				B32DA5FA29AF5B8200607885 /* CategoriesViewController.swift */,
+				285F417429B328D2009E5AB6 /* MainViewControllerD.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 				CCB6A1AC29AF4A8D0012E0E8 /* RecipeViewCell.swift */,
 				CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */,
 				CCE1DBD629B1037C00061C24 /* RecipeTableView.swift */,
+				285F417629B32D53009E5AB6 /* MainViewD.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,6 +255,7 @@
 				CCADCC8529AE4F0300D87FF6 /* MainCoordinator.swift in Sources */,
 				CCADCC8A29AE795C00D87FF6 /* LaunchScreenVC.swift in Sources */,
 				CCB6A1A729AF3C1E0012E0E8 /* CookStruct.swift in Sources */,
+				285F417729B32D53009E5AB6 /* MainViewD.swift in Sources */,
 				CCB6A1A929AF3DDC0012E0E8 /* CookModel.swift in Sources */,
 				7504A48929AB80CD00732F40 /* AppDelegate.swift in Sources */,
 				CCB6A1AD29AF4A8D0012E0E8 /* RecipeViewCell.swift in Sources */,
@@ -258,6 +265,7 @@
 				CCADCC9429AE989E00D87FF6 /* ListRecipeViewController.swift in Sources */,
 				CCADCC8329AE4E0900D87FF6 /* Coordinator.swift in Sources */,
 				CCE1DBD729B1037C00061C24 /* RecipeTableView.swift in Sources */,
+				285F417529B328D2009E5AB6 /* MainViewControllerD.swift in Sources */,
 				CCB6A1B029AFA3740012E0E8 /* UIImageView + Extensions.swift in Sources */,
 				7504A48B29AB80CD00732F40 /* SceneDelegate.swift in Sources */,
 				CCADCC9229AE81E100D87FF6 /* FavoriteViewController.swift in Sources */,
