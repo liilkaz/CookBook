@@ -5,34 +5,52 @@
 //  Created by Vladimir V. on 28.02.2023.
 //
 
-import SwiftUI
+import UIKit
 
 final class ListRecipeViewController: UIViewController, Coordinating {
     
     var coordinator: Coordinator?
+    var recipeTableView: RecipeTableView?
+    
+    var listResiperData:[RecipeData]  = [
+    RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG"),
+    RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG"),
+    RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG"),
+    RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG")
+    ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
-
-        let recipe =  RecipeView()
-        recipe.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(recipe)
+        view.backgroundColor = .white
+        title = "Main course"
         
-        NSLayoutConstraint.activate([
-            recipe.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 10),
-            recipe.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            recipe.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            recipe.heightAnchor.constraint(equalTo: recipe.widthAnchor ),
-                 ])
+        setipUi()
+        
     }
     
-    @objc func pushRecipeImage() {
-        
+    func setipUi() {
+        recipeTableView = RecipeTableView()
+        recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(recipeTableView!)
+        NSLayoutConstraint.activate([
+            recipeTableView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            recipeTableView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+        recipeTableView?.arrayItems = listResiperData
+        recipeTableView?.coordinator = coordinator
     }
+    
     func didUpdateView() {
-        
+        //recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.searchRecipes)!
+        //recipeTableView?.arrayItems = coordinator?.cookManager?.cookData.favoriteRecipes
+        DispatchQueue.main.async {
+            self.recipeTableView!.tableViewController.tableView.reloadData()
+        }
     }
+    
     func didUpdateImage(imageString: String) {
         print(imageString)
     }
