@@ -30,6 +30,8 @@ struct RecipeInfoData: Codable {
     let title: String
     let extendedIngredients: [RecipeIngridientsInfo]
     
+}
+extension RecipeInfoData{
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)

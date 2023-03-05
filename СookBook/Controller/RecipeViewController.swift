@@ -15,6 +15,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     let ingridientsAmount = ["280g","7 tablespoons","6","720g(3 cups)"]
     var coordinator: Coordinator?
     var recipe: RecipeData? = RecipeData(id: 1, title: "Hello", image: "", imageType: "")
+    var recipeInfo: RecipeInfoData = RecipeInfoData(id: 1, title: "", extendedIngredients: [])
     var recipeImage = RecipeView()
     let line = UIView()
     
@@ -62,6 +63,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         super.viewDidLoad()
         view.backgroundColor = .white
         recipeImage.translatesAutoresizingMaskIntoConstraints = false
+        coordinator!.cookManager!.fetchRecipe(recipeId: recipe!.id)
         createLabels()
         setupConstraints()
         createCellsIngridientsInfo()
@@ -101,8 +103,8 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         let cell = UIStackView()
         let ingridientLabel = UILabel()
         let ingridientAmountLabel = UILabel()
-        ingridientLabel.text = "\(coordinator!.cookManager!.fetchRecipe(recipeId: recipe!.id))"
-        ingridientAmountLabel.text = ""
+        ingridientLabel.text = "\(coordinator?.cookManager?.cookData.recipesInfoAbout?.extendedIngredients[index].unit)"
+        ingridientAmountLabel.text = "\(coordinator?.cookManager?.cookData.recipesInfoAbout?.extendedIngredients[index].amount)"
         ingridientLabel.textColor = .black
         ingridientLabel.translatesAutoresizingMaskIntoConstraints = false
         ingridientLabel.numberOfLines = 0
@@ -120,7 +122,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
        // recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.recipesInfoAbout)! take recipesInfoAbout to our array of Ingridients
 
         DispatchQueue.main.async {
-            self.reloadData()
+            self.createCellsIngridientsInfo()
         }
     }
     func reloadData(){
