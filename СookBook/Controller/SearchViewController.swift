@@ -46,6 +46,7 @@ final class SearchViewController: UIViewController, Coordinating {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         recipeTableView!.reloadCell()
+        recipeTableView!.reloadInputViews()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

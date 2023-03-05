@@ -27,8 +27,20 @@ final class CookManager {
     var cookData =  CookModel()
     var delegate: CookManagerDelegate?
     
-    func fetchRecipe(recipeId: Int) {
+    // Access Shared Defaults Object
+    private let userDefaults = UserDefaults.standard
 
+    init() {
+        cookData.favoriteRecipes = (userDefaults.object(forKey: "favoriteRecipes") as? [Int]) ?? []
+        for recipeId in cookData.favoriteRecipes {
+            if !cookData.recipeDict.keys.contains(recipeId){
+                fetchRecipe(recipeId: recipeId)
+            }
+        }
+    }
+    
+    func fetchRecipe(recipeId: Int) {
+        performRequest(with: .recipe, searchText: "\(recipeId)")
     }
     
     func fetchPopularRecipe() {
@@ -38,6 +50,7 @@ final class CookManager {
     func fetchSearchRecipe(text: String) {
         performRequest(with: .search, searchText: text)
     }
+    
     func fetchTypePopularRecipe(type: TypeMeal) {
         performRequest(with: .typePopularRecpe, searchText: type.rawValue, typeMeal: type)
     }
@@ -61,7 +74,12 @@ final class CookManager {
                         }
                     case .recipe:
                         if let recipe = self.parseRecipeJSON(safeData) {
-                            self.delegate?.didUpdateRecipe(self, recipe: recipe)
+                            DispatchQueue.main.async {
+                                if !self.cookData.recipeDict.keys.contains(recipe.id){
+                                    self.cookData.recipeDict[recipe.id] = recipe
+                                }
+                                self.delegate?.didUpdateRecipe(self, recipe: recipe)
+                            }
                         }
                     case .search:
                         if let recipe = self.parseArrayJSON(safeData) {
@@ -110,13 +128,13 @@ final class CookManager {
         case .search:
             return "http://135.181.99.110:8080/recipes/complexSearch?sort=popularity&query=%@&apiKey=your_key"
         case .recipe:
-            return "http://135.181.99.110:8080/recipes/715449/information?apiKey=your_key"
+            return "http://135.181.99.110:8080/recipes/%@/information?apiKey=your_key"
         case .typePopularRecpe:
             return "http://135.181.99.110:8080/recipes/complexSearch?sort=popularity&type=%@&apiKey=your_key"
         }
     }
     func checkFavoriteRecipe(recipe: RecipeData) {
         _ = cookData.addOrRemoveFavoriteRecipe(recipe)
+        userDefaults.set(cookData.favoriteRecipes, forKey: "favoriteRecipes")
     }
-    
 }

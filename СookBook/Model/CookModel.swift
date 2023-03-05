@@ -43,11 +43,11 @@ struct CookModel {
         if let index = favoriteRecipes.firstIndex(of: recipe.id) {
             favoriteRecipes.remove(at: index)
             recipeDict[recipe.id]?.favorite = false
-            return false
+        } else {
+            favoriteRecipes.insert(recipe.id, at: 0)
+            recipeDict[recipe.id]?.favorite = true
         }
-        favoriteRecipes.insert(recipe.id, at: 0)
-        recipeDict[recipe.id]?.favorite = true
-        return true
+        return recipeDict[recipe.id]!.favorite
     }
     
     mutating func setSearchRecipe(array: [RecipeData]) {

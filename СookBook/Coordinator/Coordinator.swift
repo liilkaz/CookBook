@@ -28,7 +28,7 @@ protocol Coordinator {
     var navigationController: UINavigationController? {get set}
     var children : [Coordinator]? {get set}
     var cookManager: CookManager? {get set}
-    var activeViewController: UIViewController? {get set}
+    var activeViewController: [UIViewController]? {get set}
     var imagesDictionary: Dictionary<String, UIImage> {get}
     
     func start()

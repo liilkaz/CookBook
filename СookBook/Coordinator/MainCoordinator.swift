@@ -9,15 +9,16 @@ import Foundation
 import UIKit
 
 final class MainCoordinator: Coordinator {
+    
     private var viewControllers = Dictionary<TypeViewController, Coordinating>()
     
     var imagesDictionary = Dictionary<String, UIImage>()
     var cookManager: CookManager? = nil
     var navigationController: UINavigationController?
+    var parent: Coordinator? = nil
     var children: [Coordinator]? = nil
-    var activeViewController: UIViewController?
+    var activeViewController: [UIViewController]?
     var activeTypeVC: TypeViewController = .launchScreenVC
-    
     
     func eventOccurred(with type: Event, recipe: RecipeData) {
         switch type {
@@ -25,20 +26,20 @@ final class MainCoordinator: Coordinator {
             let vc = TabBarController()
             vc.coordinator = self
             navigationController?.setViewControllers([vc], animated: true)
-            activeViewController = vc
+            activeViewController = [vc]
             activeTypeVC = .homeVC
         case .recipeTapped:
             let vc = RecipeViewController()
             vc.coordinator = self
             vc.recipe = recipe
-            children![0].navigationController!.present(vc, animated: true)
-            activeViewController = vc
-            activeTypeVC = .recipeVC
+            navigationController!.present(vc, animated: true)
+            activeViewController?.append(vc)
+            //activeTypeVC = .recipeVC
         case .listRecipeTapped:
             let vc = ListRecipeViewController()
             children![0].navigationController!.pushViewController(vc, animated: true)
             vc.coordinator = self
-            activeViewController = vc
+            activeViewController = [vc]
         case .favoriteTapped:
             cookManager!.checkFavoriteRecipe(recipe: recipe)
             viewControllers[.favoriteVC]!.didUpdateView()
@@ -58,9 +59,9 @@ final class MainCoordinator: Coordinator {
         }
     }
     
-    func setActiveViewController(with viewController: UIViewController) {
-        activeViewController = viewController
-    }
+//    func setActiveViewController(with viewController: UIViewController) {
+//        activeViewController = viewController
+//    }
     
     func addController(type: TypeViewController, controller: Coordinating) {
         if viewControllers.keys.contains(type) {
@@ -96,6 +97,9 @@ final class MainCoordinator: Coordinator {
     }
 
     func getRecipe(_ recipeId: Int) -> RecipeData {
+        if !(cookManager?.cookData.recipeDict.keys.contains(recipeId))!{
+            assertionFailure("Not find recipe id in data")
+        }
         return (cookManager?.cookData.recipeDict[recipeId])!
     }
     
@@ -117,8 +121,6 @@ extension MainCoordinator: CookManagerDelegate {
             self.addImage(item.image)
         }
         self.cookManager!.cookData.setPopularRecipes(array: recipes)
-        self.cookManager!.cookData.setFavoriteRecipes(array: recipes)
-        print("didUpdatePopularRecipesData <<---- ToDo")
         self.updateActiveViewController()
     }
     
@@ -135,8 +137,11 @@ extension MainCoordinator: CookManagerDelegate {
     }
     
     func updateActiveViewController() {
-        guard let vc = (activeViewController as? Coordinating) else { return }
-        vc.didUpdateView()
+        if (activeViewController == nil) { return }
+        for viewController in activeViewController! {
+            guard let vc = (viewController as? Coordinating) else { return }
+            vc.didUpdateView()
+        }
     }
     
     func didFailWithError(error: Error) {

@@ -37,7 +37,7 @@ class TabBarController: UITabBarController {
             (vc as! MainViewController).coordinator = coordinator
             vc?.tabBarItem.title = "Home"
             vc?.tabBarItem.image = UIImage(named: "Home")
-            coordinator?.activeViewController = vc
+            coordinator?.activeViewController = [vc!]
         case .categoriesVC:
             let newCoordinator = MainCoordinator()
             let navVC = UINavigationController()
@@ -71,7 +71,7 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        coordinator?.activeViewController = viewController
+        coordinator?.activeViewController = [viewController]
         return true
     }
 }
