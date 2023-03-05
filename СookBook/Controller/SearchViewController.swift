@@ -64,8 +64,8 @@ final class SearchViewController: UIViewController, Coordinating {
         }
     }
     
-    func didUpdateImage(imageString: String) {
-        print(imageString)
+    func didUpdateImage(recipeId: Int) {
+        print(recipeId)
     }
 }
 

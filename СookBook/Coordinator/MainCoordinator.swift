@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 final class MainCoordinator: Coordinator {
-    
+
     private var viewControllers = Dictionary<TypeViewController, Coordinating>()
     
-    var imagesDictionary = Dictionary<String, UIImage>()
+    var imagesDictionary = Dictionary<Int, UIImage>()
     var cookManager: CookManager? = nil
     var navigationController: UINavigationController?
     var parent: Coordinator? = nil
@@ -20,7 +20,7 @@ final class MainCoordinator: Coordinator {
     var activeViewController: [UIViewController]?
     var activeTypeVC: TypeViewController = .launchScreenVC
     
-    func eventOccurred(with type: Event, recipe: RecipeData) {
+    func eventOccurred(with type: Event, recipe: RecipeInfoData) {
         switch type {
         case .startTapped:
             let vc = TabBarController()
@@ -31,7 +31,7 @@ final class MainCoordinator: Coordinator {
         case .recipeTapped:
             let vc = RecipeViewController()
             vc.coordinator = self
-            vc.recipe = recipe
+            vc.recipeInfo = recipe
             navigationController!.present(vc, animated: true)
             activeViewController?.append(vc)
             //activeTypeVC = .recipeVC
@@ -70,33 +70,39 @@ final class MainCoordinator: Coordinator {
         viewControllers[type] = controller
     }
     
-    func getImage(_ urlString: String) -> UIImage {
-        if !imagesDictionary.keys.contains(urlString) {
-            self.load(urlString: urlString)
-            return UIImage()
+    func loadImages(_ recipeId: Int) {
+        if !imagesDictionary.keys.contains(recipeId) {
+            cookManager!.fetchRecipeImage(recipeId: recipeId)
         }
-        return imagesDictionary[urlString]!
     }
     
-    private func addImage(_ urlString: String) {
-        if !imagesDictionary.keys.contains(urlString) {
-            self.load(urlString: urlString)
+    func getImage(_ recipeId: Int) -> UIImage {
+        if !imagesDictionary.keys.contains(recipeId) {
+            cookManager!.fetchRecipeImage(recipeId: recipeId)
+            return UIImage()
         }
+        return imagesDictionary[recipeId]!
     }
+    
+//    private func addImage(_ urlString: String) {
+//        if !imagesDictionary.keys.contains(urlString) {
+//            self.load(urlString: urlString)
+//        }
+//    }
         
-    private func load(urlString: String) {
-        let url = URL(string: urlString)!
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    self?.imagesDictionary[urlString] = UIImage(data:  data)!
-                    self?.updateActiveViewController()
-                }
-            }
-        }
-    }
+//    private func load(urlString: String) {
+//        let url = URL(string: urlString)!
+//        DispatchQueue.global().async { [weak self] in
+//            if let data = try? Data(contentsOf: url) {
+//                DispatchQueue.main.async {
+//                    self?.imagesDictionary[urlString] = UIImage(data:  data)!
+//                    self?.updateActiveViewController()
+//                }
+//            }
+//        }
+//    }
 
-    func getRecipe(_ recipeId: Int) -> RecipeData {
+    func getRecipe(_ recipeId: Int) -> RecipeInfoData {
         if !(cookManager?.cookData.recipeDict.keys.contains(recipeId))!{
             assertionFailure("Not find recipe id in data")
         }
@@ -107,18 +113,25 @@ final class MainCoordinator: Coordinator {
 
 
 extension MainCoordinator: CookManagerDelegate {
+    
+    func didLoadImage(_ cookManager: CookManager, recipeId: Int, data: Data) {
+        self.imagesDictionary[recipeId] = UIImage(data:  data)!
+        self.updateActiveViewController()
+    }
+    
     func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData]) {
         self.cookManager!.cookData.setSearchRecipe(array: recipes)
         self.updateActiveViewController()
     }
     
-    func didUpdateRecipe(_ cookManager: CookManager, recipe: RecipeData) {
-        print("didUpdateRecipe")
+    func didUpdateRecipe(_ cookManager: CookManager, recipeInfoData: RecipeInfoData) { //Каждый раз когда запрашиваем у менеджера данные с джсона, то обновляев данные о рецепте
+        self.cookManager!.cookData.recipesInfoAbout = recipeInfoData
+        self.updateActiveViewController()
     }
     
     func didUpdatePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData]) {
         for item in recipes {
-            self.addImage(item.image)
+            self.loadImages(item.id)
         }
         self.cookManager!.cookData.setPopularRecipes(array: recipes)
         self.updateActiveViewController()
@@ -128,7 +141,7 @@ extension MainCoordinator: CookManagerDelegate {
 //        for item in recipes {
 //            
 //        }
-        self.addImage(recipes[0].image)
+        self.loadImages(recipes[0].id)
         self.cookManager!.cookData.setTypeMealRecipes(typeMeal: typeMeal, array: recipes)
 //        self.cookManager!.cookData.setPopularRecipes(array: recipes)
 //        self.cookManager!.cookData.setFavoriteRecipes(array: recipes)

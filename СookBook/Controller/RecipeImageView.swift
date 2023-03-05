@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 protocol RecipeViewDelegate {
-    func pushCheckFavorite(recipe: RecipeData) //toDoStruct
+    func pushCheckFavorite(recipe: RecipeInfoData) //toDoStruct
 }
 
 final class RecipeView: UIView {
-    private var recipe = RecipeData(id: 1, title: "", image: "", imageType: "")
+    private var recipe = RecipeInfoData(from: RecipeData(id: 1, title: "", image: "", imageType: ""))
     
     
     var recipeViewDelegate: RecipeViewDelegate?
@@ -82,10 +82,10 @@ final class RecipeView: UIView {
         self.recipeImage.image = image
     }
     
-    func reloadRecipe(recipe: RecipeData) {
+    func reloadRecipe(recipe: RecipeInfoData) {
         self.recipe = recipe
         self.textInformation.text = self.recipe.title
-        self.recipeImage.load(url: URL(string: recipe.image)!)
+        //self.recipeImage.load(url: URL(string: recipe.image)!)
         if self.recipe.favorite {
             favoriteButton.tintColor = .red
         } else {

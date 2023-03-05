@@ -13,7 +13,6 @@ struct RecipeData: Codable {
     let title: String
     let image: String
     let imageType: String
-    var favorite: Bool = false
 }
 
 extension RecipeData {
@@ -26,17 +25,51 @@ extension RecipeData {
       }
 }
 
+struct RecipeInfoData: Codable {
+    let id: Int
+    let title: String
+    var favorite: Bool = false
+    let extendedIngredients: [RecipeIngridientsInfo]
+    
+}
+extension RecipeInfoData{
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        title = try values.decode(String.self, forKey: .title)
+        extendedIngredients = try values.decode([RecipeIngridientsInfo].self, forKey: .extendedIngredients)
+    }
+    init(from recipe: RecipeData) {
+        id = recipe.id
+        title = recipe.title
+        extendedIngredients = []
+    }
+}
+
+struct RecipeIngridientsInfo: Codable{
+    //let extendedIngredients: [RecipeInfoData]
+    let id: Int
+    let amount: Double
+    let unit: String
+    let meta: [String]
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        //extendedIngredients = try values.decode([RecipeInfoData].self, forKey: .extendedIngredients)
+        id = try values.decode(Int.self, forKey: .id)
+        amount = try values.decode(Double.self, forKey: .amount)
+        unit = try values.decode(String.self, forKey: .unit)
+        meta = try values.decode([String].self, forKey: .meta)
+    }
+}
 struct PopularRecipesData: Codable {
     let arrayRecipe: [RecipeData]
     
     enum CodingKeys: String, CodingKey {
         case arrayRecipe = "results"
     }
-}
-
-extension PopularRecipesData {
-      init(from decoder: Decoder) throws {
-          let values = try decoder.container(keyedBy: CodingKeys.self)
-          arrayRecipe = try values.decode([RecipeData].self, forKey: .arrayRecipe)
-      }
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        arrayRecipe = try values.decode([RecipeData].self, forKey: .arrayRecipe)
+    }
 }

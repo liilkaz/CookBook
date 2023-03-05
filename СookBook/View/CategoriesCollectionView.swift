@@ -2,7 +2,7 @@ import UIKit
 
 protocol CategoriesCollectionViewDelegate {
     func pushCategorieList() //toDoStruct
-    func getImages(url: String) ->UIImage //toDoStruct
+    func getImages(recipeId: Int) ->UIImage //toDoStruct
 }
 
 class CategoriesCollectionView: UICollectionView {
@@ -11,7 +11,7 @@ class CategoriesCollectionView: UICollectionView {
     private let cellId = "cellId"
     private let cell = CategoriesCollectionViewCell()
     var categorieListDelegat: CategoriesCollectionViewDelegate?
-    var mealTypeList: [(String, String)] = []
+    var mealTypeList: [(String, Int)] = []
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
@@ -40,7 +40,7 @@ class CategoriesCollectionView: UICollectionView {
         delegate = self
         dataSource = self
     }
-    func setCategoriresTitle(arrayString: [(String, String)]) {
+    func setCategoriresTitle(arrayString: [(String, Int)]) {
         mealTypeList = arrayString
     }
 }
@@ -55,7 +55,7 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell()
         }
         cell.setText(textLabel: mealTypeList[indexPath.row].0)
-        cell.setImage(image: (categorieListDelegat?.getImages(url: mealTypeList[indexPath.row].1))!)
+        cell.setImage(image: (categorieListDelegat?.getImages(recipeId: mealTypeList[indexPath.row].1))!)
         return cell
     }
 }

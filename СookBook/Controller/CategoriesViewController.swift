@@ -25,8 +25,8 @@ class CategoriesViewController: UIViewController, Coordinating {
         
     }
     
-    func didUpdateImage(imageString: String) {
-        print(imageString)
+    func didUpdateImage(recipeId: Int) {
+        print(recipeId)
     }
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -47,8 +47,8 @@ extension CategoriesViewController: CategoriesCollectionViewDelegate {
     func pushCategorieList() {
         coordinator?.eventOccurred(with: .listRecipeTapped)
     }
-    func getImages(url: String) -> UIImage {
-        return coordinator?.getImage(url) ?? UIImage()
+    func getImages(recipeId: Int) -> UIImage {
+        return coordinator?.getImage(recipeId) ?? UIImage()
         
     }
 }

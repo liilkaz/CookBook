@@ -13,20 +13,22 @@ enum TypeRequestURL {
     case recipe
     case search
     case typePopularRecpe
+    case image
 }
 
 protocol CookManagerDelegate {
-    func didUpdateRecipe(_ cookManager: CookManager, recipe: RecipeData)
+    func didUpdateRecipe(_ cookManager: CookManager, recipeInfoData: RecipeInfoData)
     func didUpdatePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
     func didUpdateSearchRecipesData(_ cookManager: CookManager, recipes: [RecipeData])
     func didUpdateTypePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData], typeMeal: TypeMeal)
+    func didLoadImage(_ cookManager: CookManager, recipeId: Int, data: Data)
     func didFailWithError(error: Error)
 }
 
 final class CookManager {
     var cookData =  CookModel()
     var delegate: CookManagerDelegate?
-    
+
     // Access Shared Defaults Object
     private let userDefaults = UserDefaults.standard
 
@@ -38,9 +40,12 @@ final class CookManager {
             }
         }
     }
-    
+
     func fetchRecipe(recipeId: Int) {
         performRequest(with: .recipe, searchText: "\(recipeId)")
+    }
+    func fetchRecipeImage(recipeId: Int) {
+        performRequest(with: .image, searchText: "\(recipeId)")
     }
     
     func fetchPopularRecipe() {
@@ -73,12 +78,16 @@ final class CookManager {
                             self.delegate?.didUpdatePopularRecipesData(self, recipes: recipe)
                         }
                     case .recipe:
-                        if let recipe = self.parseRecipeJSON(safeData) {
+                        if let recipeInfoData = self.parseRecipeJSON(safeData) {
                             DispatchQueue.main.async {
-                                if !self.cookData.recipeDict.keys.contains(recipe.id){
-                                    self.cookData.recipeDict[recipe.id] = recipe
+                                if !self.cookData.recipeDict.keys.contains(recipeInfoData.id){
+                                    self.cookData.recipeDict[recipeInfoData.id] = recipeInfoData
+                                    if self.cookData.favoriteRecipes.contains(recipeInfoData.id) {
+                                        self.cookData.recipeDict[recipeInfoData.id]!.favorite = true
+                                    }
+                                    
                                 }
-                                self.delegate?.didUpdateRecipe(self, recipe: recipe)
+                                self.delegate?.didUpdateRecipe(self, recipeInfoData: recipeInfoData)
                             }
                         }
                     case .search:
@@ -90,6 +99,10 @@ final class CookManager {
                             DispatchQueue.main.async {
                                 self.delegate?.didUpdateTypePopularRecipesData(self, recipes: recipe, typeMeal: typeMeal!)
                             }
+                        }
+                    case .image:
+                        DispatchQueue.main.async {
+                            self.delegate?.didLoadImage(self, recipeId: Int(searchText)!, data: safeData)
                         }
                     }
                     
@@ -110,10 +123,11 @@ final class CookManager {
         }
     }
     
-    func parseRecipeJSON(_ cookData: Data) -> RecipeData? {
+    func parseRecipeJSON(_ cookData: Data) -> RecipeInfoData? {
         let decoder = JSONDecoder()
         do {
-            let recipe = try decoder.decode(RecipeData.self, from: cookData)
+            let recipe = try decoder.decode(RecipeInfoData.self, from: cookData)
+            print("Rexipe Ok: \(recipe.id)")
             return recipe
         } catch {
             delegate?.didFailWithError(error: error)
@@ -131,9 +145,11 @@ final class CookManager {
             return "http://135.181.99.110:8080/recipes/%@/information?apiKey=your_key"
         case .typePopularRecpe:
             return "http://135.181.99.110:8080/recipes/complexSearch?sort=popularity&type=%@&apiKey=your_key"
+        case .image:
+            return "https://spoonacular.com/recipeImages/%@-312x231.jpg"
         }
     }
-    func checkFavoriteRecipe(recipe: RecipeData) {
+    func checkFavoriteRecipe(recipe: RecipeInfoData) {
         _ = cookData.addOrRemoveFavoriteRecipe(recipe)
         userDefaults.set(cookData.favoriteRecipes, forKey: "favoriteRecipes")
     }

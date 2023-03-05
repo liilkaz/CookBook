@@ -56,7 +56,7 @@ final class RecipeTableView: UIView {
                 let recipeId = arrayItems[indexRow]
                 let recipe = coordinator?.getRecipe(recipeId)
                 cell.refresh(recipe!)
-                cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.image))! )
+                cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.id))! )
             }
 //            let cell = tableViewController.tableView.cellForRow(at: indexPath)
 //            guard let viewCell = (cell as? RecipeViewCell) else { return }
@@ -83,7 +83,7 @@ extension RecipeTableView: UITableViewDataSource, UITableViewDelegate {
             let recipe = coordinator?.getRecipe(recipeId)
             cell.viewCell?.recipeViewDelegate = self
             cell.refresh(recipe!)
-            cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.image))! )
+            cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.id))! )
             return cell
         }
         return UITableViewCell()
@@ -97,7 +97,7 @@ extension RecipeTableView: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension RecipeTableView: RecipeViewDelegate {
-    func pushCheckFavorite(recipe: RecipeData) {
+    func pushCheckFavorite(recipe: RecipeInfoData) {
         coordinator?.eventOccurred(with: .favoriteTapped, recipe: recipe)
     }
 }

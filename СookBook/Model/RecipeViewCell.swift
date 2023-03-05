@@ -45,11 +45,11 @@ class RecipeViewCell: UITableViewCell, RecipeViewDelegate {
         super.setSelected(selected, animated: animated)
     }
     
-    func refresh(_ recipe: RecipeData) {
+    func refresh(_ recipe: RecipeInfoData) {
         viewCell!.reloadRecipe(recipe: recipe)
     }
 
-    func pushCheckFavorite(recipe: RecipeData) {
+    func pushCheckFavorite(recipe: RecipeInfoData) {
         print("RecipeViewCell")
     }
 }

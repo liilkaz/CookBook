@@ -34,7 +34,7 @@ final class FavoriteViewController: UIViewController, Coordinating {
             self.recipeTableView?.tableViewController.tableView.reloadData()
         }
     }
-    func didUpdateImage(imageString: String) {
+    func didUpdateImage(recipeId: Int) {
        // <#code#>
     }
 }

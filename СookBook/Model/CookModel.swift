@@ -30,16 +30,17 @@ enum TypeMeal: String  {
 
 struct CookModel {
     let id: Int = 9
-    var recipeDict = Dictionary<Int, RecipeData>()
+    var recipeDict = Dictionary<Int, RecipeInfoData>()
     var typeMealDict = Dictionary<TypeMeal, [Int]>()
-    var typeTopMealItem = Dictionary<TypeMeal, (String, String)>()
+    var typeTopMealItem = Dictionary<TypeMeal, (String, Int)>()
     var popularRecipes:[Int] = []
     var favoriteRecipes:[Int] = []
     var searchRecipes:[Int] = []
     var lastActiveRecipes:[Int] = []
-
+    var recipesInfoAbout: RecipeInfoData?
+    
     // true - was added & false - was removed
-    mutating func addOrRemoveFavoriteRecipe(_ recipe: RecipeData)-> Bool {
+    mutating func addOrRemoveFavoriteRecipe(_ recipe: RecipeInfoData)-> Bool {
         if let index = favoriteRecipes.firstIndex(of: recipe.id) {
             favoriteRecipes.remove(at: index)
             recipeDict[recipe.id]?.favorite = false
@@ -54,7 +55,7 @@ struct CookModel {
         searchRecipes = []
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = item
+                self.recipeDict[item.id] = RecipeInfoData(from: item)
             }
             
             self.searchRecipes.append(item.id)
@@ -64,7 +65,7 @@ struct CookModel {
         popularRecipes = []
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = item
+                self.recipeDict[item.id] = RecipeInfoData(from: item)
             }
             
             self.popularRecipes.append(item.id)
@@ -74,7 +75,7 @@ struct CookModel {
         favoriteRecipes = []
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = item
+                self.recipeDict[item.id] = RecipeInfoData(from: item)
             }
             self.recipeDict[item.id]?.favorite = true
             self.favoriteRecipes.append(item.id)
@@ -87,10 +88,10 @@ struct CookModel {
             return
         }
         print("\(typeMeal.rawValue) Image \(array[0].image)")
-        self.typeTopMealItem[typeMeal] = (typeMeal.rawValue, array[0].image)
+        self.typeTopMealItem[typeMeal] = (typeMeal.rawValue, array[0].id)
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = item
+                self.recipeDict[item.id] = RecipeInfoData(from: item)
             }
             if !typeMealDict.keys.contains(typeMeal) { //toDo thread
                 self.typeMealDict[typeMeal] = []
@@ -99,8 +100,8 @@ struct CookModel {
             self.typeMealDict[typeMeal]!.append(item.id)
         }
     }
-    func topMealItems() -> [(String, String)] {
-        var items: [(String, String)] = []
+    func topMealItems() -> [(String, Int)] {
+        var items: [(String, Int)] = []
         for typeMeal in TypeMeal.allCases {
             if !self.typeTopMealItem.keys.contains(typeMeal) {
                 assertionFailure("There was an issue  adding viewController in MainCoordinator")
