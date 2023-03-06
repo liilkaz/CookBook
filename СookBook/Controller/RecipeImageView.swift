@@ -29,19 +29,15 @@ final class RecipeView: UIView {
         return textLabel
     }()
     
-    private lazy var favoriteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .clear
-        let image = UIImage(systemName: "star.circle.fill")
-        let imageView = UIImageView(image: image)
-        
-        button.addSubview(imageView)
-        button.addTarget(self, action: #selector(pushFavoriteButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
+    private lazy var favoriteImage: UIImageView = {
+        let imageView = UIImageView()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pushFavoriteImage(tapGestureRecognizer:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
-    
+
     var recipeImage: UIImageView = {
        let recipeImage = UIImageView()
         recipeImage.image = UIImage(named: "Home")
@@ -62,7 +58,7 @@ final class RecipeView: UIView {
     func setup() {
         self.backgroundColor = .clear
         self.addSubview(recipeImage)
-        self.addSubview(favoriteButton)
+        self.addSubview(favoriteImage)
         self.addSubview(textInformation)
         
         NSLayoutConstraint.activate([
@@ -71,8 +67,10 @@ final class RecipeView: UIView {
             recipeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1),
             recipeImage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 1),
             
-            favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            favoriteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+            favoriteImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            favoriteImage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+            favoriteImage.widthAnchor.constraint(equalToConstant: 40),
+            favoriteImage.heightAnchor.constraint(equalTo: favoriteImage.widthAnchor),
             
             textInformation.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             textInformation.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
@@ -86,15 +84,14 @@ final class RecipeView: UIView {
     func reloadRecipe(recipe: RecipeInfoData) {
         self.recipe = recipe
         self.textInformation.text = self.recipe.title
-        //self.recipeImage.load(url: URL(string: recipe.image)!)
         if self.recipe.favorite {
-            favoriteButton.tintColor = .red
+            favoriteImage.image = UIImage(named: "FavoriteOn")
         } else {
-            favoriteButton.tintColor = .white
+            favoriteImage.image = UIImage(named: "FavoriteOff")
         }
     }
     
-    @objc func pushFavoriteButton() {
+    @objc func pushFavoriteImage(tapGestureRecognizer: UITapGestureRecognizer) {
         recipeViewDelegate?.pushCheckFavorite(recipe: self.recipe)
     }
 }
