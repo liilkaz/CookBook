@@ -83,32 +83,15 @@ final class MainCoordinator: Coordinator {
         }
         return imagesDictionary[recipeId]!
     }
-    
-//    private func addImage(_ urlString: String) {
-//        if !imagesDictionary.keys.contains(urlString) {
-//            self.load(urlString: urlString)
-//        }
-//    }
-        
-//    private func load(urlString: String) {
-//        let url = URL(string: urlString)!
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: url) {
-//                DispatchQueue.main.async {
-//                    self?.imagesDictionary[urlString] = UIImage(data:  data)!
-//                    self?.updateActiveViewController()
-//                }
-//            }
-//        }
-//    }
 
     func getRecipe(_ recipeId: Int) -> RecipeInfoData {
         if !(cookManager?.cookData.recipeDict.keys.contains(recipeId))!{
             assertionFailure("Not find recipe id in data")
         }
-        return (cookManager?.cookData.recipeDict[recipeId])!
+        var recipeInfo = cookManager!.cookData.recipeDict[recipeId]
+        recipeInfo?.favorite = cookManager!.cookData.isFavoriteRecipe(recipeId: recipeId)
+        return recipeInfo!
     }
-    
 }
 
 
@@ -124,7 +107,6 @@ extension MainCoordinator: CookManagerDelegate {
     }
     
     func didUpdateRecipe(_ cookManager: CookManager, recipeInfoData: RecipeInfoData) { //Каждый раз когда запрашиваем у менеджера данные с джсона, то обновляев данные о рецепте
-        self.cookManager!.cookData.recipesInfoAbout = recipeInfoData
         self.updateActiveViewController()
     }
     

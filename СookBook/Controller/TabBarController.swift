@@ -68,11 +68,14 @@ class TabBarController: UITabBarController {
         }
         return vc!
     }
-
 }
 
 extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let vc = (viewController as? UINavigationController)  {
+            coordinator?.activeViewController = vc.viewControllers
+            return true
+        }        
         coordinator?.activeViewController = [viewController]
         return true
     }

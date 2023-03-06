@@ -13,14 +13,6 @@ final class ListRecipeViewController: UIViewController, Coordinating {
     var typeMeal: TypeMeal?
     var recipeTableView: RecipeTableView?
     
-//    var listResiperData:[RecipeInfoData]  = [
-//        RecipeInfoData( from: RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG")),
-//        RecipeInfoData( from: RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG")),
-//        RecipeInfoData( from: RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG")),
-//        RecipeInfoData( from: RecipeData(id: 0, title: "TITLE", image: "IMAGE", imageType: "JPG"))
-//    ]
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -50,6 +42,11 @@ final class ListRecipeViewController: UIViewController, Coordinating {
         DispatchQueue.main.async {
             self.recipeTableView!.tableViewController.tableView.reloadData()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        recipeTableView!.reloadCell()
     }
     
     func didUpdateImage(recipeId: Int) {

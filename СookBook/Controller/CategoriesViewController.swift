@@ -21,8 +21,8 @@ class CategoriesViewController: UIViewController, Coordinating {
         categoriesCollectionView.setCategoriresTitle(typeMealArray: (coordinator?.cookManager?.cookData.topMealItems())!)
         categoriesCollectionView.reloadData()
     }
+    
     func didUpdateView() {
-        
     }
     
     func didUpdateImage(recipeId: Int) {

@@ -14,7 +14,6 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     let ingridients = ["All purpose flour","sugar","large egg","Whole milk,warm"]
     let ingridientsAmount = ["280g","7 tablespoons","6","720g(3 cups)"]
     var coordinator: Coordinator?
-    //var recipe: RecipeInfoData? = RecipeInfoData(from: RecipeData(id: 1, title: "Hello", image: "", imageType: ""))
     var recipeInfo: RecipeInfoData = RecipeInfoData(from: RecipeData(id: 1, title: "Hello", image: "", imageType: ""))
     var recipeImage = RecipeView()
     let line = UIView()
@@ -58,12 +57,11 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     }(UILabel())
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         recipeImage.translatesAutoresizingMaskIntoConstraints = false
-        coordinator!.cookManager!.fetchRecipe(recipeId: recipeInfo.id)
+        recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
         createLabels()
         setupConstraints()
         createCellsIngridientsInfo()
@@ -103,8 +101,6 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         let cell = UIStackView()
         let ingridientLabel = UILabel()
         let ingridientAmountLabel = UILabel()
-        ingridientLabel.text = "\(coordinator?.cookManager?.cookData.recipesInfoAbout?.extendedIngredients[index].unit)"
-        ingridientAmountLabel.text = "\(coordinator?.cookManager?.cookData.recipesInfoAbout?.extendedIngredients[index].amount)"
         ingridientLabel.textColor = .black
         ingridientLabel.translatesAutoresizingMaskIntoConstraints = false
         ingridientLabel.numberOfLines = 0
@@ -118,15 +114,15 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         return cell
     }
     func didUpdateView() {
-        recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))!)
         recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
+        recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))!)
         recipeImage.reloadRecipe(recipe: recipeInfo)
         DispatchQueue.main.async {
             self.createCellsIngridientsInfo()
         }
     }
     func reloadData(){
-        for index in 0..<(coordinator?.cookManager?.cookData.recipesInfoAbout?.extendedIngredients.count)!{
+        for index in 0..<(recipeInfo.extendedIngredients.count){
             //reload info about ingridients
         }
     }

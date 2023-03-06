@@ -41,18 +41,12 @@ final class SearchViewController: UIViewController, Coordinating {
             recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-        recipeTableView?.arrayItems = searchData
         recipeTableView?.coordinator = coordinator
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        recipeTableView!.reloadCell()
-        recipeTableView!.reloadInputViews()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //recipeTableView!.reloadCell()
+        didUpdateView()
     }
 
     @objc func serchPressed(_ sender: UIButton) {

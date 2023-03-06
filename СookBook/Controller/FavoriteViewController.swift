@@ -25,8 +25,11 @@ final class FavoriteViewController: UIViewController, Coordinating {
             recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-        recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
         recipeTableView?.coordinator = coordinator
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        didUpdateView()
     }
     
     func didUpdateView() {

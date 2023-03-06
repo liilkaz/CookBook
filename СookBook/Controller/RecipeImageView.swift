@@ -45,6 +45,7 @@ final class RecipeView: UIView {
     var recipeImage: UIImageView = {
        let recipeImage = UIImageView()
         recipeImage.image = UIImage(named: "Home")
+        recipeImage.contentMode = .scaleAspectFit
         recipeImage.translatesAutoresizingMaskIntoConstraints = false
         return recipeImage
     }()
@@ -59,7 +60,7 @@ final class RecipeView: UIView {
     }
     
     func setup() {
-        self.backgroundColor = .black
+        self.backgroundColor = .clear
         self.addSubview(recipeImage)
         self.addSubview(favoriteButton)
         self.addSubview(textInformation)

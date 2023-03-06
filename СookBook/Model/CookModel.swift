@@ -38,7 +38,6 @@ struct CookModel {
     var favoriteRecipes:[Int] = []
     var searchRecipes:[Int] = []
     var lastActiveRecipes:[Int] = []
-    var recipesInfoAbout: RecipeInfoData?
     
     // true - was added & false - was removed
     mutating func addOrRemoveFavoriteRecipe(_ recipe: RecipeInfoData)-> Bool {
@@ -110,5 +109,9 @@ struct CookModel {
             items.append( (typeMeal, typeTopMealItem[typeMeal]!) )
         }
         return items
+    }
+    
+    func isFavoriteRecipe(recipeId: Int) -> Bool {
+        return favoriteRecipes.contains(recipeId)
     }
 }
