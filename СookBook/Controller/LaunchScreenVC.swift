@@ -19,10 +19,33 @@ final class LaunchScreenVC : UIViewController {
         return image
     }()
     
+    let progressBar: UIProgressView = {
+        let progress = UIProgressView()
+        progress.progressTintColor = .white
+        progress.setProgress(0, animated: false)
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        return progress
+    }()
+    
+    let labelTapText: UILabel = {
+        let label = UILabel()
+        label.text = "Tap to continue"
+        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.layer.backgroundColor = .init(gray: 1, alpha: 0.5)
+        label.layer.cornerRadius = 5
+        label.textColor = .white
+        label.textAlignment = .center
+        label.alpha = 0
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 10
+        stack.contentMode = .center
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -53,7 +76,31 @@ final class LaunchScreenVC : UIViewController {
         setupView()
         setConstreints()
         
+        Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(updateProgressView), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(animatedTap), userInfo: nil, repeats: true)
         addActions()
+    }
+    
+    @objc func updateProgressView(){
+        if progressBar.progress != 1{
+            progressBar.progress += 1/100
+        } else{
+            labelTapText.isHidden = false
+            UIView.animate(withDuration: 0.4) {
+                self.progressBar.alpha = 0
+                self.labelTapText.alpha = 1
+            }
+        }
+    }
+    
+    @objc func animatedTap(){
+        if progressBar.progress == 1{
+            if labelTapText.alpha == 1{
+                UIView.animate(withDuration: 0.4) {self.labelTapText.alpha = 0}
+            } else{
+                UIView.animate(withDuration: 0.4) {self.labelTapText.alpha = 1}
+            }
+        }
     }
     
     @objc func didTapView() {
@@ -63,6 +110,8 @@ final class LaunchScreenVC : UIViewController {
     func setupView(){
         view.addSubview(backgroundImage)
         view.addSubview(stack)
+        stack.addArrangedSubview(progressBar)
+        stack.addSubview(labelTapText)
         stack.addArrangedSubview(labelText)
         stack.addArrangedSubview(labelSecondText)
     }
@@ -75,7 +124,10 @@ final class LaunchScreenVC : UIViewController {
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stack.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30)
+            stack.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30),
+            
+            labelTapText.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
+            labelTapText.bottomAnchor.constraint(equalTo: labelText.topAnchor)
         ])
     }
     
