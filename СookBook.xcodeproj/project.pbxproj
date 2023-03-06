@@ -15,6 +15,8 @@
 		7504A49229AB80CE00732F40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7504A49129AB80CE00732F40 /* Assets.xcassets */; };
 		7504A4A429AB83E800732F40 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7504A4A329AB83E800732F40 /* RecipeViewController.swift */; };
 		B32DA5FB29AF5B8200607885 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32DA5FA29AF5B8200607885 /* CategoriesViewController.swift */; };
+		C34E52FF29B140040043D066 /* ListResipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34E52FE29B140040043D066 /* ListResipeCollectionViewCell.swift */; };
+		C34E530129B21F980043D066 /* RecipeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34E530029B21F980043D066 /* RecipeTableView.swift */; };
 		CCADCC8329AE4E0900D87FF6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCADCC8229AE4E0900D87FF6 /* Coordinator.swift */; };
 		CCADCC8529AE4F0300D87FF6 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCADCC8429AE4F0300D87FF6 /* MainCoordinator.swift */; };
 		CCADCC8729AE609E00D87FF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCADCC8629AE609E00D87FF6 /* TabBarController.swift */; };
@@ -33,7 +35,6 @@
 		CCB6A1B529B074F60012E0E8 /* CategoriesLabelAndImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6A1B329B074F60012E0E8 /* CategoriesLabelAndImageView.swift */; };
 		CCB6A1B729B0759D0012E0E8 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6A1B629B0759D0012E0E8 /* CategoriesCollectionViewCell.swift */; };
 		CCE1DBD529B1014200061C24 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */; };
-		CCE1DBD729B1037C00061C24 /* RecipeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1DBD629B1037C00061C24 /* RecipeTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		7504A49629AB80CE00732F40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7504A4A329AB83E800732F40 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		B32DA5FA29AF5B8200607885 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		C34E52FE29B140040043D066 /* ListResipeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListResipeCollectionViewCell.swift; sourceTree = "<group>"; };
+		C34E530029B21F980043D066 /* RecipeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeTableView.swift; sourceTree = "<group>"; };
 		CCADCC8229AE4E0900D87FF6 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CCADCC8429AE4F0300D87FF6 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		CCADCC8629AE609E00D87FF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -65,7 +68,6 @@
 		CCB6A1B329B074F60012E0E8 /* CategoriesLabelAndImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesLabelAndImageView.swift; sourceTree = "<group>"; };
 		CCB6A1B629B0759D0012E0E8 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
-		CCE1DBD629B1037C00061C24 /* RecipeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,8 +139,9 @@
 				CCADCC8B29AE7D7000D87FF6 /* RecipeImageView.swift */,
 				CCB6A1AC29AF4A8D0012E0E8 /* RecipeViewCell.swift */,
 				CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */,
-				CCE1DBD629B1037C00061C24 /* RecipeTableView.swift */,
 				285F417629B32D53009E5AB6 /* MainViewD.swift */,
+				C34E52FE29B140040043D066 /* ListResipeCollectionViewCell.swift */,
+				C34E530029B21F980043D066 /* RecipeTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,6 +253,8 @@
 				CCADCC8729AE609E00D87FF6 /* TabBarController.swift in Sources */,
 				CCADCC9029AE819A00D87FF6 /* SearchViewController.swift in Sources */,
 				7504A48D29AB80CD00732F40 /* MainViewController.swift in Sources */,
+				C34E530129B21F980043D066 /* RecipeTableView.swift in Sources */,
+				C34E52FF29B140040043D066 /* ListResipeCollectionViewCell.swift in Sources */,
 				CCADCC9629AEAA6100D87FF6 /* CookManager.swift in Sources */,
 				CCB6A1B729B0759D0012E0E8 /* CategoriesCollectionViewCell.swift in Sources */,
 				CCADCC8529AE4F0300D87FF6 /* MainCoordinator.swift in Sources */,
@@ -264,7 +269,6 @@
 				CCADCC8E29AE815600D87FF6 /* CategorieViewController.swift in Sources */,
 				CCADCC9429AE989E00D87FF6 /* ListRecipeViewController.swift in Sources */,
 				CCADCC8329AE4E0900D87FF6 /* Coordinator.swift in Sources */,
-				CCE1DBD729B1037C00061C24 /* RecipeTableView.swift in Sources */,
 				285F417529B328D2009E5AB6 /* MainViewControllerD.swift in Sources */,
 				CCB6A1B029AFA3740012E0E8 /* UIImageView + Extensions.swift in Sources */,
 				7504A48B29AB80CD00732F40 /* SceneDelegate.swift in Sources */,

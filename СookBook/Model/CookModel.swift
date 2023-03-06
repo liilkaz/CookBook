@@ -8,6 +8,7 @@
 import Foundation
 
 enum TypeMeal: String  {
+    case none
     case mainCourse = "main%20course"
     case sideDish = "side%20dish"
     case dessert = "dessert"
@@ -32,7 +33,7 @@ struct CookModel {
     let id: Int = 9
     var recipeDict = Dictionary<Int, RecipeInfoData>()
     var typeMealDict = Dictionary<TypeMeal, [Int]>()
-    var typeTopMealItem = Dictionary<TypeMeal, (String, Int)>()
+    var typeTopMealItem = Dictionary<TypeMeal, Int>()
     var popularRecipes:[Int] = []
     var favoriteRecipes:[Int] = []
     var searchRecipes:[Int] = []
@@ -88,7 +89,7 @@ struct CookModel {
             return
         }
         print("\(typeMeal.rawValue) Image \(array[0].image)")
-        self.typeTopMealItem[typeMeal] = (typeMeal.rawValue, array[0].id)
+        self.typeTopMealItem[typeMeal] = array[0].id
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
                 self.recipeDict[item.id] = RecipeInfoData(from: item)
@@ -100,13 +101,13 @@ struct CookModel {
             self.typeMealDict[typeMeal]!.append(item.id)
         }
     }
-    func topMealItems() -> [(String, Int)] {
-        var items: [(String, Int)] = []
+    func topMealItems() -> [(TypeMeal, Int)] {
+        var items: [(TypeMeal, Int)] = []
         for typeMeal in TypeMeal.allCases {
             if !self.typeTopMealItem.keys.contains(typeMeal) {
                 assertionFailure("There was an issue  adding viewController in MainCoordinator")
             }
-            items.append(((typeTopMealItem[typeMeal]))!)
+            items.append( (typeMeal, typeTopMealItem[typeMeal]!) )
         }
         return items
     }

@@ -16,27 +16,29 @@ final class SearchViewController: UIViewController, Coordinating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         searchHeaderView = SearchHeaderView()
         searchHeaderView!.searchField.delegate = self
         recipeTableView = RecipeTableView()
         searchHeaderView!.searchButton.addTarget(self, action: #selector(serchPressed), for: .touchUpInside)
+        
         
         view.addSubview(searchHeaderView!)
         view.addSubview(recipeTableView!)
         
         searchHeaderView!.translatesAutoresizingMaskIntoConstraints = false
         recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
-        searchHeaderView!.backgroundColor = .red
+        searchHeaderView!.backgroundColor = .gray
 
         NSLayoutConstraint.activate([
             searchHeaderView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            searchHeaderView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            searchHeaderView!.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchHeaderView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchHeaderView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchHeaderView!.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             
             recipeTableView!.topAnchor.constraint(equalTo: searchHeaderView!.bottomAnchor, constant: 10),
-            recipeTableView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            recipeTableView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
         recipeTableView?.arrayItems = searchData
@@ -76,7 +78,7 @@ extension SearchViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldEditing(_ textField: UITextField) -> Bool {
+    private func textFieldShouldEditing(_ textField: UITextField) -> Bool {
         if searchHeaderView!.searchField.text == "" {
             return false
         }

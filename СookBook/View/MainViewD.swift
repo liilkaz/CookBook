@@ -55,8 +55,6 @@ class PreviewRecipeCard: UIView {
 
 
 class MainViewD: UIView {
-    var coordinator: Coordinator?
-    
     
     private lazy var stackMain: UIStackView = {
         let stackMain = UIStackView()
@@ -110,9 +108,6 @@ class MainViewD: UIView {
         
         return label
     }()
-    
-    
-            
     
     private lazy var viewMainBottom: UIView = {
         let viewMainBottom = UIView()
@@ -168,7 +163,6 @@ class MainViewD: UIView {
     }
     
     private func addPreviewCards(_ toStackView: UIStackView, imageWidth: CGFloat) {
-        
         for _ in 0..<10 {
             let view = PreviewRecipeCard()
             toStackView.addArrangedSubview(view)
@@ -231,14 +225,19 @@ class MainViewD: UIView {
             
             labelSavedRecipes.topAnchor.constraint(equalTo: viewMainBottom.topAnchor),
             labelSavedRecipes.leadingAnchor.constraint(equalTo: viewMainBottom.leadingAnchor),
-            
-            
         ])
         
     }
-    //constraint
     
+    func setPopularRecipes(recipes: [RecipeInfoData]) {
+        for item in recipes {
+            //ToDo
+        }
+    }
     
-    
-    
+    func setSavedRecipes(recipes: [RecipeInfoData]) {
+        for item in recipes {
+            //ToDo
+        }
+    }
 }

@@ -61,7 +61,7 @@ class TabBarController: UITabBarController {
             vc = FavoriteViewController()
             (vc as! FavoriteViewController).coordinator = coordinator
             vc?.tabBarItem.title = "Favorite"
-            vc?.tabBarItem.image = UIImage(named: "Favorite")
+            vc?.tabBarItem.image = UIImage(systemName: "heart")
             self.coordinator?.addController(type: .favoriteVC, controller: vc as! Coordinating)
         default:
             print("Error!!")

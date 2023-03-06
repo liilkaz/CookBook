@@ -32,7 +32,8 @@ protocol Coordinator {
     var imagesDictionary: Dictionary<Int, UIImage> {get}
     
     func start()
-    func eventOccurred(with type: Event, recipe: RecipeInfoData)
+    func eventOccurred(with type: Event, recipe: RecipeInfoData, typeMeal:TypeMeal)
+    
     func addController(type: TypeViewController, controller: Coordinating)
     func getImage(_ recipeId: Int) -> UIImage
     func getRecipe(_ recipeId: Int) -> RecipeInfoData
@@ -45,7 +46,13 @@ protocol Coordinating {
 }
 
 extension Coordinator {
+    func eventOccurred(with type: Event, typeMaal: TypeMeal) {
+        eventOccurred(with: type, recipe: RecipeInfoData(from: RecipeData(id: 1, title: "", image: "", imageType: "")), typeMeal: typeMaal)
+    }
+    func eventOccurred(with type: Event, recipe: RecipeInfoData) {
+        eventOccurred(with: type, recipe: recipe, typeMeal: TypeMeal.none)
+    }
     func eventOccurred(with type: Event) {
-        eventOccurred(with: type, recipe: RecipeInfoData(from: RecipeData(id: 1, title: "", image: "", imageType: "")))
+        eventOccurred(with: type, recipe: RecipeInfoData(from: RecipeData(id: 1, title: "", image: "", imageType: "")), typeMeal: TypeMeal.none)
     }
 }

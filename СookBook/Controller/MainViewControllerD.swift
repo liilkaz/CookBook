@@ -8,11 +8,12 @@
 import UIKit
 
 class MainViewControllerD: UIViewController, Coordinating {
+    let mainView = MainViewD()
+
     var coordinator: Coordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let mainView = MainViewD()
         mainView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainView)
         NSLayoutConstraint.activate([
@@ -25,14 +26,14 @@ class MainViewControllerD: UIViewController, Coordinating {
     
     
     func didUpdateView() {
+        mainView
         
     }
     
-    func didUpdateImage(imageString: String) {
-        
+    func didUpdateImage(recipeId: Int) {
+        //
     }
     
-
     
     
 }

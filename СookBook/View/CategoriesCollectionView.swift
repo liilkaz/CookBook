@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CategoriesCollectionViewDelegate {
-    func pushCategorieList() //toDoStruct
+    func pushCategorieList(type: TypeMeal) //toDoStruct
     func getImages(recipeId: Int) ->UIImage //toDoStruct
 }
 
@@ -11,7 +11,7 @@ class CategoriesCollectionView: UICollectionView {
     private let cellId = "cellId"
     private let cell = CategoriesCollectionViewCell()
     var categorieListDelegat: CategoriesCollectionViewDelegate?
-    var mealTypeList: [(String, Int)] = []
+    var mealTypeList: [(TypeMeal, Int)] = []
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
@@ -40,8 +40,9 @@ class CategoriesCollectionView: UICollectionView {
         delegate = self
         dataSource = self
     }
-    func setCategoriresTitle(arrayString: [(String, Int)]) {
-        mealTypeList = arrayString
+    func setCategoriresTitle(typeMealArray: [(TypeMeal, Int)]) {
+        mealTypeList = typeMealArray
+        //mealTypeList = arrayString
     }
 }
 
@@ -54,7 +55,7 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell()
         }
-        cell.setText(textLabel: mealTypeList[indexPath.row].0)
+        cell.setText(textLabel: mealTypeList[indexPath.row].0.rawValue)
         cell.setImage(image: (categorieListDelegat?.getImages(recipeId: mealTypeList[indexPath.row].1))!)
         return cell
     }
@@ -62,7 +63,7 @@ extension CategoriesCollectionView: UICollectionViewDataSource {
 
 extension CategoriesCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        categorieListDelegat?.pushCategorieList()
+        categorieListDelegat?.pushCategorieList(type: mealTypeList[indexPath.row].0)
     }
 }
 

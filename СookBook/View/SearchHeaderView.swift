@@ -20,9 +20,14 @@ final class SearchHeaderView: UIView {
     } (UIStackView())
     
     let searchField: UITextField = {
-        $0.backgroundColor = .red
-        $0.textAlignment = .right
-        $0.placeholder = "Search"
+        $0.textAlignment = .center
+//        $0.placeholder = "Search"
+        $0.textColor = .white
+        $0.attributedPlaceholder = NSAttributedString(
+            string: " Search ",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        )
+        $0.backgroundColor = .gray
         return $0
     }(UITextField())
     

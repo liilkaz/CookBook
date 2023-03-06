@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 final class MainCoordinator: Coordinator {
-
     private var viewControllers = Dictionary<TypeViewController, Coordinating>()
     
     var imagesDictionary = Dictionary<Int, UIImage>()
@@ -20,7 +19,7 @@ final class MainCoordinator: Coordinator {
     var activeViewController: [UIViewController]?
     var activeTypeVC: TypeViewController = .launchScreenVC
     
-    func eventOccurred(with type: Event, recipe: RecipeInfoData) {
+    func eventOccurred(with type: Event, recipe: RecipeInfoData, typeMeal: TypeMeal) {
         switch type {
         case .startTapped:
             let vc = TabBarController()
@@ -39,6 +38,7 @@ final class MainCoordinator: Coordinator {
             let vc = ListRecipeViewController()
             children![0].navigationController!.pushViewController(vc, animated: true)
             vc.coordinator = self
+            vc.typeMeal = typeMeal
             activeViewController = [vc]
         case .favoriteTapped:
             cookManager!.checkFavoriteRecipe(recipe: recipe)
@@ -113,7 +113,6 @@ final class MainCoordinator: Coordinator {
 
 
 extension MainCoordinator: CookManagerDelegate {
-    
     func didLoadImage(_ cookManager: CookManager, recipeId: Int, data: Data) {
         self.imagesDictionary[recipeId] = UIImage(data:  data)!
         self.updateActiveViewController()
