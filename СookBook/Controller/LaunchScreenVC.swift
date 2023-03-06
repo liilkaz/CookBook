@@ -53,14 +53,10 @@ final class LaunchScreenVC : UIViewController {
         setupView()
         setConstreints()
         
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 220, height: 55))
-        view.addSubview(button)
-        button.center = view.center
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle(" ", for: .normal)
+        addActions()
     }
-    @objc func didTapButton() {
+    
+    @objc func didTapView() {
         coordinator?.eventOccurred(with: .startTapped)
     }
     
@@ -81,5 +77,10 @@ final class LaunchScreenVC : UIViewController {
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stack.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30)
         ])
+    }
+    
+    func addActions() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapView))
+        view.addGestureRecognizer(tap)
     }
 }
