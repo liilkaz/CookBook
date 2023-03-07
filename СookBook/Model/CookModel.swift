@@ -65,7 +65,7 @@ struct CookModel {
         popularRecipes = []
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = RecipeInfoData(from: item)
+                //self.recipeDict[item.id] = RecipeInfoData(from: item)
             }
             
             self.popularRecipes.append(item.id)
@@ -75,7 +75,7 @@ struct CookModel {
         favoriteRecipes = []
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = RecipeInfoData(from: item)
+               // self.recipeDict[item.id] = RecipeInfoData(from: item)
             }
             self.recipeDict[item.id]?.favorite = true
             self.favoriteRecipes.append(item.id)
@@ -91,7 +91,8 @@ struct CookModel {
         self.typeTopMealItem[typeMeal] = array[0].id
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = RecipeInfoData(from: item)
+               // self.recipeDict[item.id] = RecipeInfoData(from: item)
+                
             }
             if !typeMealDict.keys.contains(typeMeal) { //toDo thread
                 self.typeMealDict[typeMeal] = []

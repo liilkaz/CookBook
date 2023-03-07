@@ -86,9 +86,14 @@ final class MainCoordinator: Coordinator {
 
     func getRecipe(_ recipeId: Int) -> RecipeInfoData {
         if !(cookManager?.cookData.recipeDict.keys.contains(recipeId))!{
-            assertionFailure("Not find recipe id in data")
+            cookManager!.fetchRecipe(recipeId: recipeId)
+            return RecipeInfoData(from: RecipeData(id: recipeId, title: "Hello", image: "", imageType: ""))
+            
         }
         var recipeInfo = cookManager!.cookData.recipeDict[recipeId]
+//        if recipeInfo!.extendedIngredients.count == 0 {
+//            cookManager!.fetchRecipe(recipeId: recipeId)
+//        }
         recipeInfo?.favorite = cookManager!.cookData.isFavoriteRecipe(recipeId: recipeId)
         return recipeInfo!
     }

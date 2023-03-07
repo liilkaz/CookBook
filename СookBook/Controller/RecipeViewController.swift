@@ -11,8 +11,6 @@ import UIKit
 final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordinating {
     
     let tagsListString = ["240 calories","40 min","Easy","serves 2"]
-    let ingridients = ["All purpose flour","sugar","large egg","Whole milk,warm"]
-    let ingridientsAmount = ["280g","7 tablespoons","6","720g(3 cups)"]
     var coordinator: Coordinator?
     var recipeInfo: RecipeInfoData = RecipeInfoData(from: RecipeData(id: 1, title: "Hello", image: "", imageType: ""))
     var recipeImage = RecipeView()
@@ -92,7 +90,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         return tagLabel
     }
     func createCellsIngridientsInfo(){
-        for index in 0..<ingridients.count{
+        for index in 0..<(recipeInfo.extendedIngredients.count){
             let cell = createOneCellView(index)
             recipeIngerdientStack.addArrangedSubview(cell)
         }
@@ -118,12 +116,16 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))!)
         recipeImage.reloadRecipe(recipe: recipeInfo)
         DispatchQueue.main.async {
-            self.createCellsIngridientsInfo()
+            self.reloadData()
         }
     }
     func reloadData(){
         for index in 0..<(recipeInfo.extendedIngredients.count){
-            //reload info about ingridients
+            let cell = (recipeIngerdientStack.arrangedSubviews[index] as! UIStackView)
+            let ingridientLabel = (cell.arrangedSubviews[0] as! UILabel)
+            let ingridientAmountLabel = (cell.arrangedSubviews[1] as! UILabel)
+            ingridientLabel.text = "\(recipeInfo.extendedIngredients[index].nameClean)"
+            ingridientAmountLabel.text = "\((recipeInfo.extendedIngredients[index].amount))  \((recipeInfo.extendedIngredients[index].unit))"
         }
     }
     
@@ -185,16 +187,9 @@ extension RecipeViewController{
         mainStack.addSubview(recipeIngerdientStack)
         NSLayoutConstraint.activate([
             recipeIngerdientStack.topAnchor.constraint(equalToSystemSpacingBelow: line.bottomAnchor, multiplier: 1),
-            recipeIngerdientStack.heightAnchor.constraint(equalTo: mainStack.heightAnchor, multiplier: 0.15),
+            recipeIngerdientStack.heightAnchor.constraint(equalTo: mainStack.heightAnchor, multiplier: 1),
             recipeIngerdientStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
             recipeIngerdientStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
         ])
     }
 }
-    
-
-
-
-
-
-

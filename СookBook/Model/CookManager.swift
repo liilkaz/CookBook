@@ -80,13 +80,14 @@ final class CookManager {
                     case .recipe:
                         if let recipeInfoData = self.parseRecipeJSON(safeData) {
                             DispatchQueue.main.async {
-                                if !self.cookData.recipeDict.keys.contains(recipeInfoData.id){
+                                if !self.cookData.recipeDict.keys.contains(recipeInfoData.id) {
                                     self.cookData.recipeDict[recipeInfoData.id] = recipeInfoData
                                     if self.cookData.favoriteRecipes.contains(recipeInfoData.id) {
                                         self.cookData.recipeDict[recipeInfoData.id]!.favorite = true
                                     }
                                     
                                 }
+                                
                                 self.delegate?.didUpdateRecipe(self, recipeInfoData: recipeInfoData)
                             }
                         }
