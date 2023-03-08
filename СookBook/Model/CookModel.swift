@@ -9,20 +9,20 @@ import Foundation
 
 enum TypeMeal: String  {
     case none
-    case mainCourse = "main%20course"
-    case sideDish = "side%20dish"
-    case dessert = "dessert"
-    case appetizer = "appetizer"
-    case salad = "salad"
-    case bread = "bread"
-    case breakfast = "breakfast"
-    case soup = "soup"
-    case beverage = "beverage"
-    case sauce = "sauce"
-    case marinade = "marinade"
-    case fingerfood = "fingerfood"
-    case snack = "snack"
-    case drink = "drink"
+    case mainCourse = "Main course"
+    case sideDish = "Side dish"
+    case dessert = "Dessert"
+    case appetizer = "Appetizer"
+    case salad = "Salad"
+    case bread = "Bbread"
+    case breakfast = "Breakfast"
+    case soup = "Soup"
+    case beverage = "Beverage"
+    case sauce = "Sauce"
+    case marinade = "Marinade"
+    case fingerfood = "Fingerfood"
+    case snack = "Snack"
+    case drink = "Drink"
     
     static var allCases: [TypeMeal] {
         return [.mainCourse, .sideDish, .dessert, .appetizer, .salad, .bread, .breakfast, .soup, .beverage, .sauce, .marinade, .fingerfood, .snack, .drink]

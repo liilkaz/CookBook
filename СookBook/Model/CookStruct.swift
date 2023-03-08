@@ -30,7 +30,6 @@ struct RecipeInfoData: Codable {
     let title: String
     var favorite: Bool = false
     let extendedIngredients: [RecipeIngridientsInfo]
-    
 }
 extension RecipeInfoData{
     init(from decoder: Decoder) throws {

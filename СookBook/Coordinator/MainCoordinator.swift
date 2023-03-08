@@ -79,14 +79,15 @@ final class MainCoordinator: Coordinator {
     func getImage(_ recipeId: Int) -> UIImage {
         if !imagesDictionary.keys.contains(recipeId) {
             cookManager!.fetchRecipeImage(recipeId: recipeId)
-            return UIImage()
+            return UIImage(named: "NoImage")!
         }
         return imagesDictionary[recipeId]!
     }
 
     func getRecipe(_ recipeId: Int) -> RecipeInfoData {
         if !(cookManager?.cookData.recipeDict.keys.contains(recipeId))!{
-            assertionFailure("Not find recipe id in data")
+            cookManager!.fetchRecipe(recipeId: recipeId)
+            return RecipeInfoData(from: RecipeData(id: 1, title: "", image: "", imageType: ""))
         }
         var recipeInfo = cookManager!.cookData.recipeDict[recipeId]
         recipeInfo?.favorite = cookManager!.cookData.isFavoriteRecipe(recipeId: recipeId)

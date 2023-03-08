@@ -26,14 +26,13 @@ class MainViewControllerD: UIViewController, Coordinating {
     
     
     func didUpdateView() {
-        mainView
+        //mainView
         
     }
     
     func didUpdateImage(recipeId: Int) {
         //
     }
-    
-    
+
     
 }

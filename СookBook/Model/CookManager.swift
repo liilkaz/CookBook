@@ -44,6 +44,7 @@ final class CookManager {
     func fetchRecipe(recipeId: Int) {
         performRequest(with: .recipe, searchText: "\(recipeId)")
     }
+    
     func fetchRecipeImage(recipeId: Int) {
         performRequest(with: .image, searchText: "\(recipeId)")
     }
@@ -57,7 +58,7 @@ final class CookManager {
     }
     
     func fetchTypePopularRecipe(type: TypeMeal) {
-        performRequest(with: .typePopularRecpe, searchText: type.rawValue, typeMeal: type)
+        performRequest(with: .typePopularRecpe, searchText: type.rawValue.replacingOccurrences(of: " ", with: "%20"), typeMeal: type)
     }
     
     func performRequest(with type: TypeRequestURL, searchText: String = "", typeMeal: TypeMeal? = nil) {
