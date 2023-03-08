@@ -30,7 +30,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     let recipeIngerdientStack: UIStackView = {
         $0.axis = .vertical
         $0.distribution = .fillEqually
-        $0.spacing = 20
+        $0.spacing = 5
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIStackView())
@@ -70,7 +70,9 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
         recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))! )
+        self.didUpdateView()
     }
     func createLabels(){
         for tagString in tagsListString{
@@ -155,7 +157,7 @@ extension RecipeViewController{
             mainStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             mainStack.widthAnchor.constraint(equalTo: view.widthAnchor,multiplier: 0.90),
-            mainStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2.0)
+            mainStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2)
         ])
         mainStack.addSubview(titleLabel)
         NSLayoutConstraint.activate([
@@ -187,7 +189,7 @@ extension RecipeViewController{
         mainStack.addSubview(recipeIngerdientStack)
         NSLayoutConstraint.activate([
             recipeIngerdientStack.topAnchor.constraint(equalToSystemSpacingBelow: line.bottomAnchor, multiplier: 1),
-            recipeIngerdientStack.heightAnchor.constraint(equalTo: mainStack.heightAnchor, multiplier: 1),
+            recipeIngerdientStack.heightAnchor.constraint(equalTo: mainStack.heightAnchor, multiplier: 0.4),
             recipeIngerdientStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
             recipeIngerdientStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
         ])
