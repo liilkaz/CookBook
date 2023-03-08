@@ -28,6 +28,8 @@ final class MainCoordinator: Coordinator {
             activeViewController = [vc]
             activeTypeVC = .homeVC
         case .recipeTapped:
+            cookManager!.addHistoriRecipe(recipe: recipe)
+            self.updateActiveViewController()
             let vc = RecipeViewController()
             vc.coordinator = self
             vc.recipeInfo = recipe

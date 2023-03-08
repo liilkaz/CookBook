@@ -28,6 +28,8 @@ extension RecipeData {
 struct RecipeInfoData: Codable {
     let id: Int
     let title: String
+    let readyInMinutes: Int
+    let dishTypes: [String]
     var favorite: Bool = false
     let extendedIngredients: [RecipeIngridientsInfo]
 }
@@ -36,12 +38,33 @@ extension RecipeInfoData{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         title = try values.decode(String.self, forKey: .title)
+        readyInMinutes = try values.decode(Int.self, forKey: .readyInMinutes)
+        dishTypes = try values.decode([String].self, forKey: .dishTypes)
         extendedIngredients = try values.decode([RecipeIngridientsInfo].self, forKey: .extendedIngredients)
     }
     init(from recipe: RecipeData) {
         id = recipe.id
         title = recipe.title
+        readyInMinutes = 0
+        dishTypes = []
         extendedIngredients = []
+    }
+    
+    func subText() -> String {
+        var text = ""
+        for type in self.dishTypes {
+            if text.isEmpty {
+                text = type
+                continue
+            }
+            text += ", "
+            text += type
+        }
+        return text
+    }
+    
+    func subReadyTimeText() -> String {
+        return "\(extendedIngredients.count) ingredients | \(readyInMinutes) min"
     }
 }
 

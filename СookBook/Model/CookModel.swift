@@ -37,7 +37,7 @@ struct CookModel {
     var popularRecipes:[Int] = []
     var favoriteRecipes:[Int] = []
     var searchRecipes:[Int] = []
-    var lastActiveRecipes:[Int] = []
+    var historyRecipes:[Int] = []
     
     // true - was added & false - was removed
     mutating func addOrRemoveFavoriteRecipe(_ recipe: RecipeInfoData)-> Bool {
@@ -82,8 +82,6 @@ struct CookModel {
         }
     }
     mutating func setTypeMealRecipes(typeMeal: TypeMeal, array: [RecipeData]) {
-        
-        popularRecipes = []
         if array.isEmpty {
             return
         }

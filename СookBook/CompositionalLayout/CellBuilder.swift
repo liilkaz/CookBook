@@ -9,26 +9,27 @@ import UIKit
 
 public class CellBuilder {
     public static func getTrendingCell(viewDelegate cellClass: Any, collectionView: UICollectionView, indexPath: IndexPath, recipeInfoData: Any, recipeImage: Any) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipe", for: indexPath) as? RecipeCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trendRecipe", for: indexPath) as? TranderRecipeCollectionViewCell {
             let recipeInfo = (recipeInfoData as? RecipeInfoData)!
             let image = (recipeImage as? UIImage)!
             cell.setup(recipeInfo: recipeInfo)
-            cell.container.recipeViewDelegate = cellClass as? any RecipeViewDelegate
-            cell.container.reloadRecipe(recipe: recipeInfo)
-            cell.container.updateImage(image: image)
+            cell.recipeView.recipeViewDelegate = cellClass as? any RecipeViewDelegate
+            cell.recipeView.reloadRecipe(recipe: recipeInfo)
+            cell.recipeView.updateImage(image: image)
             return cell
         } else {
             return UICollectionViewCell()
         }
     }
     public static func getLastRecipeCell(viewDelegate cellClass: Any, collectionView: UICollectionView, indexPath: IndexPath, recipeInfoData: Any, recipeImage: Any) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipe", for: indexPath) as? RecipeCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lastWatchRecipe", for: indexPath) as? LastWatchRecipeCollectionViewCell {
             let recipeInfo = (recipeInfoData as? RecipeInfoData)!
             let image = (recipeImage as? UIImage)!
             cell.setup(recipeInfo: recipeInfo)
-            cell.container.recipeViewDelegate = cellClass as? any RecipeViewDelegate
-            cell.container.reloadRecipe(recipe: recipeInfo)
-            cell.container.updateImage(image: image)
+            cell.recipeView.recipeViewDelegate = cellClass as? any RecipeViewDelegate
+            cell.recipeView.reloadRecipe(recipe: recipeInfo)
+            cell.recipeView.updateImage(image: image)
+            //cell.container.typeView(type: lastRecipesCell)
             return cell
         } else {
             return UICollectionViewCell()
@@ -41,4 +42,13 @@ public class CellBuilder {
             return UICollectionViewCell()
         }
     }
+    public static func getTrendTextCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trendText", for: indexPath) as? TrendText {
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
+    }
+    
+    
 }

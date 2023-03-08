@@ -39,6 +39,12 @@ final class CookManager {
                 fetchRecipe(recipeId: recipeId)
             }
         }
+        cookData.historyRecipes = (userDefaults.object(forKey: "historyRecipes") as? [Int]) ?? []
+        for recipeId in cookData.historyRecipes {
+            if !cookData.recipeDict.keys.contains(recipeId){
+                fetchRecipe(recipeId: recipeId)
+            }
+        }
     }
 
     func fetchRecipe(recipeId: Int) {
@@ -154,4 +160,18 @@ final class CookManager {
         _ = cookData.addOrRemoveFavoriteRecipe(recipe)
         userDefaults.set(cookData.favoriteRecipes, forKey: "favoriteRecipes")
     }
+    
+    func addHistoriRecipe(recipe: RecipeInfoData) {
+        
+        if let index = cookData.historyRecipes.firstIndex(of: recipe.id) {
+            cookData.historyRecipes.remove(at: index)
+            
+        }
+        cookData.historyRecipes.insert(recipe.id, at: 0)
+        if cookData.historyRecipes.count > 10 {
+            cookData.historyRecipes.remove(at: 10)
+        }
+        userDefaults.set(cookData.historyRecipes, forKey: "historyRecipes")
+    }
+    
 }
