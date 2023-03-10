@@ -14,7 +14,9 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     var coordinator: Coordinator?
     var recipeInfo: RecipeInfoData = RecipeInfoData(from: RecipeData(id: 1, title: "Hello", image: "", imageType: ""))
     var recipeImage = RecipeView()
+    var amountOfIngridients = 0
     let line = UIView()
+    var isTappedCheckButton = false
     
     let scrollView: UIScrollView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +61,6 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         super.viewDidLoad()
         view.backgroundColor = .white
         recipeImage.translatesAutoresizingMaskIntoConstraints = false
-        recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
         createLabels()
         setupConstraints()
         createCellsIngridientsInfo()
@@ -71,7 +72,9 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
-        recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))! )
+        amountOfIngridients = recipeInfo.extendedIngredients.count
+        recipeIngerdientStack.heightAnchor.constraint(equalToConstant: CGFloat(amountOfIngridients*40)).isActive = true
+        recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))!)
         self.didUpdateView()
     }
     func createLabels(){
@@ -111,10 +114,32 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         ingridientAmountLabel.textAlignment = .right
         cell.addArrangedSubview(ingridientLabel)
         cell.addArrangedSubview(ingridientAmountLabel)
+        ingridientLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: cell.leadingAnchor, multiplier: 4).isActive = true
+        let checkButton = createCheckButton()
+        cell.addSubview(checkButton)
+        checkButton.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
+        checkButton.trailingAnchor.constraint(equalTo: ingridientLabel.leadingAnchor).isActive = true
+        checkButton.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
         return cell
     }
+    func createCheckButton() -> UIButton{
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "circle"), for: .normal)
+        button.addTarget(self, action: #selector(changeImageCheckButton(sender:)), for: .touchUpInside)
+        return button
+    }
+    @objc
+    private func changeImageCheckButton(sender: UIButton){
+        if(isTappedCheckButton){
+            sender.setImage(UIImage(systemName: "circle"), for: .normal)
+            isTappedCheckButton = false
+        } else {
+            sender.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+            isTappedCheckButton = true
+        }
+    }
     func didUpdateView() {
-        recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
         recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))!)
         recipeImage.reloadRecipe(recipe: recipeInfo)
         DispatchQueue.main.async {
@@ -132,8 +157,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     }
     
     func didUpdateImage(recipeId: Int) {
-        print(recipeId)
-        recipeImage.updateImage(image: (coordinator?.getImage(recipeId))! )
+        recipeImage.updateImage(image: (coordinator?.getImage(recipeId))!)
     }
     
     func pushCheckFavorite(recipe: RecipeInfoData) {
@@ -189,7 +213,6 @@ extension RecipeViewController{
         mainStack.addSubview(recipeIngerdientStack)
         NSLayoutConstraint.activate([
             recipeIngerdientStack.topAnchor.constraint(equalToSystemSpacingBelow: line.bottomAnchor, multiplier: 1),
-            recipeIngerdientStack.heightAnchor.constraint(equalTo: mainStack.heightAnchor, multiplier: 0.4),
             recipeIngerdientStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
             recipeIngerdientStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
         ])
