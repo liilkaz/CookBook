@@ -20,14 +20,14 @@ final class SearchHeaderView: UIView {
     } (UIStackView())
     
     let searchField: UITextField = {
-        $0.textAlignment = .center
+        $0.textAlignment = .left
 //        $0.placeholder = "Search"
         $0.textColor = .white
         $0.attributedPlaceholder = NSAttributedString(
             string: " Search ",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
         )
-        $0.backgroundColor = .gray
+        
         return $0
     }(UITextField())
     
@@ -59,12 +59,13 @@ final class SearchHeaderView: UIView {
     
     func setConstrains() {
         NSLayoutConstraint.activate([
-            hStack.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 0),
+            hStack.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10),
             hStack.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: 0),
             hStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             
             searchButton.widthAnchor.constraint(equalToConstant: 40),
             searchButton.heightAnchor.constraint(equalToConstant: 40),
+            searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
         ])
     }
     

@@ -9,6 +9,7 @@ import SwiftUI
 
 final class SearchViewController: UIViewController, Coordinating {
     
+    private let searchNotStartedView = SearchNotStartedView()
     var coordinator: Coordinator?
     var recipeTableView: RecipeTableView?
     var searchHeaderView: SearchHeaderView?
@@ -22,18 +23,20 @@ final class SearchViewController: UIViewController, Coordinating {
         recipeTableView = RecipeTableView()
         searchHeaderView!.searchButton.addTarget(self, action: #selector(serchPressed), for: .touchUpInside)
         
-        
         view.addSubview(searchHeaderView!)
         view.addSubview(recipeTableView!)
         
         searchHeaderView!.translatesAutoresizingMaskIntoConstraints = false
         recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
-        searchHeaderView!.backgroundColor = .gray
-
+        searchHeaderView!.backgroundColor = .lightGray
+        searchHeaderView?.layer.cornerRadius = 10
+        searchHeaderView?.layer.borderWidth = 0.5
+        searchHeaderView?.layer.borderColor = UIColor.gray.cgColor
+        
         NSLayoutConstraint.activate([
             searchHeaderView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            searchHeaderView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchHeaderView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchHeaderView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchHeaderView!.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             searchHeaderView!.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             
             recipeTableView!.topAnchor.constraint(equalTo: searchHeaderView!.bottomAnchor, constant: 10),
