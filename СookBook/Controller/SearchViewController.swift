@@ -10,6 +10,7 @@ import SwiftUI
 final class SearchViewController: UIViewController, Coordinating {
     
     private let searchNotStartedView = SearchNotStartedView()
+    private let searchNotFoundView = SearchNotFoundView()
     var coordinator: Coordinator?
     var recipeTableView: RecipeTableView?
     var searchHeaderView: SearchHeaderView?
@@ -25,8 +26,6 @@ final class SearchViewController: UIViewController, Coordinating {
        
         view.addSubview(recipeTableView!)
         view.addSubview(searchHeaderView!)
-        
-        
         
         searchHeaderView!.translatesAutoresizingMaskIntoConstraints = false
         recipeTableView!.translatesAutoresizingMaskIntoConstraints = false

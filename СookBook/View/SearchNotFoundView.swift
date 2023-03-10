@@ -7,15 +7,17 @@
 
 import UIKit
 
-class SearchNotStartedView: UIView {
+class SearchNotFoundView: UIView {
+    
+    // Чтобы добавить эту вью, её надо сделать самой нижней в иерархии и растянуть на весь экран (для того чтобы текст был по центру экрана)
     
     private let maneLabel: UILabel = {
         let label = UILabel()
-        label.text = "Let's find the tastiest recipe\n🍕"
+        label.text = "We don't have the recipes you're looking for.\n\nTry looking for another 🔎"
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(30)
-        label.numberOfLines = 3
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,7 +41,7 @@ class SearchNotStartedView: UIView {
     }
 }
 
-extension SearchNotStartedView {
+extension SearchNotFoundView {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             maneLabel.centerYAnchor.constraint(equalTo: centerYAnchor),

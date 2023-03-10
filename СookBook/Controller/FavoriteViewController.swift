@@ -11,6 +11,7 @@ final class FavoriteViewController: UIViewController, Coordinating {
     
     var coordinator: Coordinator?
     var recipeTableView: RecipeTableView?
+    private let emptryFavoriteView = EmptryFavoriteView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
