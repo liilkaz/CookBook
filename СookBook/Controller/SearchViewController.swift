@@ -22,9 +22,11 @@ final class SearchViewController: UIViewController, Coordinating {
         searchHeaderView!.searchField.delegate = self
         recipeTableView = RecipeTableView()
         searchHeaderView!.searchButton.addTarget(self, action: #selector(serchPressed), for: .touchUpInside)
-        
-        view.addSubview(searchHeaderView!)
+       
         view.addSubview(recipeTableView!)
+        view.addSubview(searchHeaderView!)
+        
+        
         
         searchHeaderView!.translatesAutoresizingMaskIntoConstraints = false
         recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
