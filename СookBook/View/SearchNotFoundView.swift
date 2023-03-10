@@ -36,8 +36,11 @@ class SearchNotFoundView: UIView {
     private func setupViews() {
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(maneLabel)
+    }
+    
+    func setText(_ text:String){
+        maneLabel.text = text
     }
 }
 

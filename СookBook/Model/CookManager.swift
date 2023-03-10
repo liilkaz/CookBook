@@ -135,7 +135,6 @@ final class CookManager {
         let decoder = JSONDecoder()
         do {
             let recipe = try decoder.decode(RecipeInfoData.self, from: cookData)
-            print("Rexipe Ok: \(recipe.id)")
             return recipe
         } catch {
             delegate?.didFailWithError(error: error)

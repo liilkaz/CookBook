@@ -65,7 +65,7 @@ final class SearchHeaderView: UIView {
             
             searchButton.widthAnchor.constraint(equalToConstant: 40),
             searchButton.heightAnchor.constraint(equalToConstant: 40),
-            searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
+            //searchButton.trailingAnchor.constraint(equalTo: hStack.trailingAnchor, constant: -5) do not working
         ])
     }
     
