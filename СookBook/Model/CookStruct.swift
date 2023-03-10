@@ -73,7 +73,7 @@ struct RecipeIngridientsInfo: Codable{
     let id: Int
     let amount: Double
     let unit: String
-    let meta: [String]
+    let nameClean: String
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -81,7 +81,7 @@ struct RecipeIngridientsInfo: Codable{
         id = try values.decode(Int.self, forKey: .id)
         amount = try values.decode(Double.self, forKey: .amount)
         unit = try values.decode(String.self, forKey: .unit)
-        meta = try values.decode([String].self, forKey: .meta)
+        nameClean = try values.decode(String.self, forKey: .nameClean)
     }
 }
 struct PopularRecipesData: Codable {
