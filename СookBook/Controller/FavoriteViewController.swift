@@ -53,13 +53,13 @@ final class FavoriteViewController: UIViewController, Coordinating {
     }
     
     func isHiddenResult(_ flag: Bool) {
-        self.recipeTableView!.isHidden = !flag
+        self.recipeTableView?.isHidden = !flag
         self.emptryFavoriteView.isHidden = flag
     }
     
     func didUpdateView() {
         recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
-        self.isHiddenResult(!(self.recipeTableView?.arrayItems.isEmpty)!)
+        self.isHiddenResult(!(coordinator?.cookManager?.cookData.favoriteRecipes)!.isEmpty)
         DispatchQueue.main.async {
             self.recipeTableView?.tableViewController.tableView.reloadData()
         }

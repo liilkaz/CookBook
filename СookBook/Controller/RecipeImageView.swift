@@ -20,6 +20,42 @@ enum TypeRecipeView {
     case recipeDefault
 }
 
+class InfoRecipeView: RecipeView {
+    override func layoutConstraint()
+    {
+        NSLayoutConstraint.activate([
+            self.recipeImage.topAnchor.constraint(equalTo: self.topAnchor),
+            self.recipeImage.leftAnchor.constraint(equalTo: self.leftAnchor),
+            self.recipeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.recipeImage.rightAnchor.constraint(equalTo: self.rightAnchor),
+            //self.recipeImage.widthAnchor.constraint(equalTo: self.widthAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.favoriteImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            //self.favoriteImage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            self.favoriteImage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+            self.favoriteImage.widthAnchor.constraint(equalToConstant: 30),
+            self.favoriteImage.heightAnchor.constraint(equalTo: self.favoriteImage.widthAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            self.titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            self.titleLabel.rightAnchor.constraint(equalTo: self.favoriteImage.leftAnchor, constant: -20)
+        ])
+
+        NSLayoutConstraint.activate([
+            self.subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            self.subtitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            //self.subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
+        ])
+        
+        self.titleLabel.isHidden = true
+        self.subtitleLabel.isHidden = true
+    }
+}
+
 class TrendRecipeView: RecipeView {
     override func layoutConstraint()
     {
@@ -121,7 +157,6 @@ class ShortRecipeView: RecipeView {
         self.titleLabel.text = recipe.title
         self.subtitleLabel.text = recipe.subText()
     }
-    
 }
 
 class Base {
@@ -194,19 +229,7 @@ class RecipeView: UIView {
     
     required init() {
         super.init(frame: CGRect.zero)
-        
-//        switch type {
-//        case .trendingNowCell:
-//            break
-//        case .lastRecipesCell:
-//            break
-//        case .recipeInfo:
-//            break
-//        case .recipeTableCell:
-//            break
-//        case .recipeDefault:
-//            break
-//        }
+
             
         self.addSubview(self.recipeImage)
         self.addSubview(self.titleLabel)

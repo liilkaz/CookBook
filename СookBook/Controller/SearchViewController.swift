@@ -86,7 +86,7 @@ final class SearchViewController: UIViewController, Coordinating {
     }
     
     func isHiddenResult(_ flag: Bool) {
-        self.recipeTableView!.isHidden = !flag
+        self.recipeTableView?.isHidden = !flag
         self.searchNotFoundView.isHidden = flag
     }
     
