@@ -30,6 +30,7 @@ struct RecipeInfoData: Codable {
     let title: String
     var favorite: Bool = false
     let extendedIngredients: [RecipeIngridientsInfo]
+    let dishTypes: [String]
     
 }
 extension RecipeInfoData{
@@ -38,11 +39,13 @@ extension RecipeInfoData{
         id = try values.decode(Int.self, forKey: .id)
         title = try values.decode(String.self, forKey: .title)
         extendedIngredients = try values.decode([RecipeIngridientsInfo].self, forKey: .extendedIngredients)
+        dishTypes = try values.decode([String].self, forKey: .dishTypes)
     }
     init(from recipe: RecipeData) {
         id = recipe.id
         title = recipe.title
         extendedIngredients = []
+        dishTypes = []
     }
 }
 

@@ -10,7 +10,6 @@ import UIKit
 
 final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordinating {
     
-    let tagsListString = ["240 calories","40 min","Easy","serves 2"]
     var coordinator: Coordinator?
     var recipeInfo: RecipeInfoData = RecipeInfoData(from: RecipeData(id: 1, title: "Hello", image: "", imageType: ""))
     var recipeImage = RecipeView()
@@ -40,7 +39,6 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     let tagsStack: UIStackView = {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
-        $0.spacing = 5
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIStackView())
@@ -74,18 +72,24 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
         amountOfIngridients = recipeInfo.extendedIngredients.count
         recipeIngerdientStack.heightAnchor.constraint(equalToConstant: CGFloat(amountOfIngridients*40)).isActive = true
+        mainStack.heightAnchor.constraint(equalToConstant: CGFloat(amountOfIngridients*80)).isActive = true
         recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))!)
         self.didUpdateView()
     }
     func createLabels(){
-        for tagString in tagsListString{
-            let tagView = createTagLabelView(tagString)
+        var maxAmountOfTags = 0
+        if recipeInfo.dishTypes.count > 5 {
+            maxAmountOfTags = 5
+        }
+        maxAmountOfTags = recipeInfo.dishTypes.count
+        for index in 0..<maxAmountOfTags{
+            let tagView = createTagLabelView(index)
             tagsStack.addArrangedSubview(tagView)
         }
     }
-    func createTagLabelView(_ tag: String) -> UIView{
+    func createTagLabelView(_ index: Int) -> UIView{
         let tagLabel = UILabel()
-        tagLabel.text = "\(tag)"
+        tagLabel.text = "\(recipeInfo.dishTypes[index])"
         tagLabel.textAlignment = .center
         tagLabel.font = .systemFont(ofSize: 12)
         tagLabel.textColor = .black
@@ -181,7 +185,6 @@ extension RecipeViewController{
             mainStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             mainStack.widthAnchor.constraint(equalTo: view.widthAnchor,multiplier: 0.90),
-            mainStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2)
         ])
         mainStack.addSubview(titleLabel)
         NSLayoutConstraint.activate([
