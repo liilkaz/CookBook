@@ -78,8 +78,9 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         var maxAmountOfTags = 0
         if recipeInfo.dishTypes.count > 5 {
             maxAmountOfTags = 5
+        }else {
+            maxAmountOfTags = recipeInfo.dishTypes.count
         }
-        maxAmountOfTags = recipeInfo.dishTypes.count
         for index in 0..<maxAmountOfTags{
             let tagView = createTagLabelView(index)
             tagsStack.addArrangedSubview(tagView)
