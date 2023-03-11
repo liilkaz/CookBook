@@ -13,7 +13,7 @@ class SearchNotFoundView: UIView {
     
     private let maneLabel: UILabel = {
         let label = UILabel()
-        label.text = "We don't have the recipes you're looking for.\n\nTry looking for another 🔎"
+//        label.text = "We don't have the recipes you're looking for.\n\nTry looking for another 🔎"
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(30)

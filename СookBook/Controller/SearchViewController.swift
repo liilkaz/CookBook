@@ -5,63 +5,59 @@
 //  Created by Vladimir V. on 28.02.2023.
 //
 
-import SwiftUI
-
-fileprivate let START_NOT_FIND_TEXT = "Let's find the tastiest recipe\n🍕"
-fileprivate let NOT_FIND_TEXT = "We don't have the recipes you're looking for.\n\nTry looking for another 🔎"
-
+import UIKit
 
 final class SearchViewController: UIViewController, Coordinating {
+    let START_NOT_FIND_TEXT = "Let's find the tastiest recipe\n🍕"
+    let NOT_FIND_TEXT = "We don't have the recipes you're looking for.\n\nTry looking for another 🔎"
     
-    var coordinator: Coordinator?
-    var recipeTableView: RecipeTableView?
+    let recipeTableView = RecipeTableView()
     let searchHeaderView = SearchHeaderView()
-    var searchData:[Int] = []
+    let searchNotFoundView = SearchNotFoundView()
+    var coordinator: Coordinator?
     
-    private let searchNotFoundView: SearchNotFoundView = {
-        let view = SearchNotFoundView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = false
-        view.setText(START_NOT_FIND_TEXT)
-        return view
-    }()
-        
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        setupView()
+        setConstraint()
+        
         searchHeaderView.searchField.delegate = self
-        recipeTableView = RecipeTableView()
-        recipeTableView!.isHidden = true
+    }
+    
+    func setupView(){
+        view.backgroundColor = .white
         
         view.addSubview(searchHeaderView)
-        view.addSubview(recipeTableView!)
+        view.addSubview(recipeTableView)
         view.addSubview(searchNotFoundView)
         searchHeaderView.searchButton.addTarget(nil, action: #selector(serchPressed), for: .touchUpInside)
         
-        recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
- 
+        searchNotFoundView.setText(START_NOT_FIND_TEXT)
         
+        recipeTableView.translatesAutoresizingMaskIntoConstraints = false
+        recipeTableView.isHidden = true
+        recipeTableView.coordinator = coordinator
+    }
+    
+    func setConstraint(){
         NSLayoutConstraint.activate([
             searchHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             searchHeaderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             searchHeaderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             searchHeaderView.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             
-            recipeTableView!.topAnchor.constraint(equalTo: searchHeaderView.bottomAnchor, constant: 10),
-            recipeTableView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            recipeTableView.topAnchor.constraint(equalTo: searchHeaderView.bottomAnchor, constant: 10),
+            recipeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recipeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recipeTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
         
         NSLayoutConstraint.activate([
-            self.searchNotFoundView.topAnchor.constraint(equalTo: self.searchHeaderView.bottomAnchor, constant: 10),
-            self.searchNotFoundView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            self.searchNotFoundView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10),
-            self.searchNotFoundView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10),
+            searchNotFoundView.topAnchor.constraint(equalTo: searchHeaderView.bottomAnchor, constant: 10),
+            searchNotFoundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            searchNotFoundView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            searchNotFoundView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
         ])
-        
-        
-        recipeTableView?.coordinator = coordinator
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,22 +70,24 @@ final class SearchViewController: UIViewController, Coordinating {
     }
     
     func isHiddenResult(_ flag: Bool) {
-        self.recipeTableView?.isHidden = !flag
-        self.searchNotFoundView.isHidden = flag
+        recipeTableView.isHidden = !flag
+        searchNotFoundView.isHidden = flag
     }
     
     func didUpdateView() {
         DispatchQueue.main.async {
-            self.recipeTableView?.arrayItems = (self.coordinator?.cookManager?.cookData.searchRecipes)!
-            self.isHiddenResult(!(self.recipeTableView?.arrayItems.isEmpty)!)
-            self.recipeTableView!.tableViewController.tableView.reloadData()
+            self.recipeTableView.arrayItems = (self.coordinator?.cookManager?.cookData.searchRecipes)!
+            self.isHiddenResult(!(self.recipeTableView.arrayItems.isEmpty))
+            self.recipeTableView.tableViewController.tableView.reloadData()
         }
     }
     
     func didUpdateImage(recipeId: Int) {
-        print(recipeId)
+//        print(recipeId)
     }
 }
+
+//MARK: - UITextFieldDelegate
 
 extension SearchViewController: UITextFieldDelegate {
 
