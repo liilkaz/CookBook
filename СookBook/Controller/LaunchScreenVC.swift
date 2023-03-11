@@ -29,7 +29,7 @@ final class LaunchScreenVC : UIViewController {
     
     let labelTapText: UILabel = {
         let label = UILabel()
-        label.text = "Tap to continue"
+        label.text = " Tap to continue "
         label.font = .systemFont(ofSize: 20, weight: .regular)
         label.layer.backgroundColor = .init(gray: 1, alpha: 0.5)
         label.layer.cornerRadius = 5
