@@ -6,6 +6,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         let image = UIImage(named: "CategoriesMieAyam")
         imageView.image = image?.withHorizontallyFlippedOrientation()
+        imageView.alpha = 0.75
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -14,8 +15,10 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     private let categoriesLabel: UILabel = {
         let label = UILabel()
         label.text = "MieAyam"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 18)
+        label.textColor = .white
+        label.shadowColor = .gray
+        label.shadowOffset = .init(width: 2, height: 0)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
