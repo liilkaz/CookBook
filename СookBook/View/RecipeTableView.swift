@@ -9,6 +9,7 @@ import UIKit
 
 final class RecipeTableView: UIView {
     var coordinator: Coordinator?
+    let cellSpacingHeight: CGFloat = 10
     var tableViewController = UITableViewController(style: .plain)
     var cellIndentifier = "Cell"
     var arrayItems:[Int] = []
@@ -41,7 +42,7 @@ final class RecipeTableView: UIView {
     func createTable() {
         tableViewController.tableView.separatorColor = UIColor.gray
         tableViewController.tableView.frame = self.bounds
-        tableViewController.tableView.rowHeight = 180
+        tableViewController.tableView.rowHeight = 230
         tableViewController.tableView.register(RecipeViewCell.self, forCellReuseIdentifier: cellIndentifier)
         tableViewController.tableView.delegate = self
         tableViewController.tableView.dataSource = self
@@ -60,9 +61,9 @@ extension RecipeTableView: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIndentifier, for: indexPath) as? RecipeViewCell {
             let recipeId = arrayItems[indexPath.row]
             let recipe = coordinator?.getRecipe(recipeId)
-            cell.viewCell?.recipeViewDelegate = self
+            cell.recipeView.recipeViewDelegate = self
             cell.refresh(recipe!)
-            cell.viewCell?.updateImage(image: (coordinator?.getImage(recipe!.id))! )
+            cell.recipeView.updateImage(image: (coordinator?.getImage(recipe!.id))! )
             return cell
         }
         return UITableViewCell()
@@ -72,6 +73,11 @@ extension RecipeTableView: UITableViewDataSource, UITableViewDelegate {
         let recipe = coordinator?.getRecipe(recipeId)
         coordinator?.eventOccurred(with: .recipeTapped, recipe: recipe!)
     }
+    
+    // Set the spacing between sections
+      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+          return cellSpacingHeight
+      }
 }
 
 extension RecipeTableView: RecipeViewDelegate {

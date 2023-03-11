@@ -8,33 +8,36 @@
 import UIKit
 
 class RecipeViewCell: UITableViewCell, RecipeViewDelegate {
-    
-    var textInformation: UILabel = {
-       let textLabel = UILabel()
-        textLabel.text = "Text"
-        textLabel.textColor = .blue
-        textLabel.font = UIFont.init(name: "Roboto-Bold", size: 16)
-        textLabel.textAlignment = .center
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.adjustsFontSizeToFitWidth = true
-        return textLabel
-    }()
 
-    var viewCell: RecipeView?
+    var recipeView: RecipeView = {
+        let view = RecipeView()
+//        view.backgroundColor = UIColor.red
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.cornerRadius = 20
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.shadowRadius = 10
+//        view.layer.shadowOffset = CGSize(width: 0, height: 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        viewCell =  RecipeView()
-        viewCell?.recipeViewDelegate = self
-        contentView.addSubview(viewCell!)
-        viewCell!.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(recipeView)
+        recipeView.recipeViewDelegate = self
 
         NSLayoutConstraint.activate([
-                viewCell!.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-                viewCell!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
-                viewCell!.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5),
-                viewCell!.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5),
+            self.recipeView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.recipeView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+            self.recipeView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            self.recipeView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor)
         ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     }
     
     required init?(coder: NSCoder) {
@@ -46,10 +49,11 @@ class RecipeViewCell: UITableViewCell, RecipeViewDelegate {
     }
     
     func refresh(_ recipe: RecipeInfoData) {
-        viewCell!.reloadRecipe(recipe: recipe)
+        recipeView.reloadRecipe(recipe: recipe)
     }
 
     func pushCheckFavorite(recipe: RecipeInfoData) {
         print("RecipeViewCell")
     }
+
 }

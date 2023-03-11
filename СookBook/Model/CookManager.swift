@@ -39,11 +39,18 @@ final class CookManager {
                 fetchRecipe(recipeId: recipeId)
             }
         }
+        cookData.historyRecipes = (userDefaults.object(forKey: "historyRecipes") as? [Int]) ?? []
+        for recipeId in cookData.historyRecipes {
+            if !cookData.recipeDict.keys.contains(recipeId){
+                fetchRecipe(recipeId: recipeId)
+            }
+        }
     }
 
     func fetchRecipe(recipeId: Int) {
         performRequest(with: .recipe, searchText: "\(recipeId)")
     }
+    
     func fetchRecipeImage(recipeId: Int) {
         performRequest(with: .image, searchText: "\(recipeId)")
     }
@@ -57,7 +64,7 @@ final class CookManager {
     }
     
     func fetchTypePopularRecipe(type: TypeMeal) {
-        performRequest(with: .typePopularRecpe, searchText: type.rawValue, typeMeal: type)
+        performRequest(with: .typePopularRecpe, searchText: type.rawValue.replacingOccurrences(of: " ", with: "%20"), typeMeal: type)
     }
     
     func performRequest(with type: TypeRequestURL, searchText: String = "", typeMeal: TypeMeal? = nil) {
@@ -128,7 +135,6 @@ final class CookManager {
         let decoder = JSONDecoder()
         do {
             let recipe = try decoder.decode(RecipeInfoData.self, from: cookData)
-            print("Rexipe Ok: \(recipe.id)")
             return recipe
         } catch {
             delegate?.didFailWithError(error: error)
@@ -154,4 +160,18 @@ final class CookManager {
         _ = cookData.addOrRemoveFavoriteRecipe(recipe)
         userDefaults.set(cookData.favoriteRecipes, forKey: "favoriteRecipes")
     }
+    
+    func addHistoriRecipe(recipe: RecipeInfoData) {
+        
+        if let index = cookData.historyRecipes.firstIndex(of: recipe.id) {
+            cookData.historyRecipes.remove(at: index)
+            
+        }
+        cookData.historyRecipes.insert(recipe.id, at: 0)
+        if cookData.historyRecipes.count > 10 {
+            cookData.historyRecipes.remove(at: 10)
+        }
+        userDefaults.set(cookData.historyRecipes, forKey: "historyRecipes")
+    }
+    
 }

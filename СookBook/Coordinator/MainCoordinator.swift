@@ -28,6 +28,8 @@ final class MainCoordinator: Coordinator {
             activeViewController = [vc]
             activeTypeVC = .homeVC
         case .recipeTapped:
+            cookManager!.addHistoriRecipe(recipe: recipe)
+            self.updateActiveViewController()
             let vc = RecipeViewController()
             vc.coordinator = self
             vc.recipeInfo = recipe
@@ -79,7 +81,7 @@ final class MainCoordinator: Coordinator {
     func getImage(_ recipeId: Int) -> UIImage {
         if !imagesDictionary.keys.contains(recipeId) {
             cookManager!.fetchRecipeImage(recipeId: recipeId)
-            return UIImage()
+            return UIImage(named: "NoImage")!
         }
         return imagesDictionary[recipeId]!
     }
@@ -88,7 +90,6 @@ final class MainCoordinator: Coordinator {
         if !(cookManager?.cookData.recipeDict.keys.contains(recipeId))!{
             cookManager!.fetchRecipe(recipeId: recipeId)
             return RecipeInfoData(from: RecipeData(id: recipeId, title: "Hello", image: "", imageType: ""))
-            
         }
         var recipeInfo = cookManager!.cookData.recipeDict[recipeId]
 //        if recipeInfo!.extendedIngredients.count == 0 {

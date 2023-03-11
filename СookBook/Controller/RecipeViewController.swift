@@ -12,7 +12,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
     
     var coordinator: Coordinator?
     var recipeInfo: RecipeInfoData = RecipeInfoData(from: RecipeData(id: 1, title: "Hello", image: "", imageType: ""))
-    var recipeImage = RecipeView()
+    var recipeImage = InfoRecipeView()
     var amountOfIngridients = 0
     let line = UIView()
     var isTappedCheckButton = false
@@ -64,12 +64,10 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         createCellsIngridientsInfo()
         
         recipeImage.recipeViewDelegate = self
-        recipeImage.reloadRecipe(recipe: recipeInfo)
-        recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))! )
+        self.didUpdateView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
         amountOfIngridients = recipeInfo.extendedIngredients.count
         recipeIngerdientStack.heightAnchor.constraint(equalToConstant: CGFloat(amountOfIngridients*40)).isActive = true
         mainStack.heightAnchor.constraint(equalToConstant: CGFloat(amountOfIngridients*80)).isActive = true
@@ -144,6 +142,8 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         }
     }
     func didUpdateView() {
+        recipeInfo = (coordinator?.getRecipe(recipeInfo.id))!
+        titleLabel.text = recipeInfo.title
         recipeImage.updateImage(image: (coordinator?.getImage(recipeInfo.id))!)
         recipeImage.reloadRecipe(recipe: recipeInfo)
         DispatchQueue.main.async {
