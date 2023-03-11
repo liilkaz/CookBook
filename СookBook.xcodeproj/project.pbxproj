@@ -104,7 +104,6 @@
 				7504A49129AB80CE00732F40 /* Assets.xcassets */,
 				7504A48829AB80CD00732F40 /* AppDelegate.swift */,
 				7504A48A29AB80CD00732F40 /* SceneDelegate.swift */,
-				CCDDCEC929B74ACB0036AB35 /* CompositionalLayout */,
 				CCADCC7B29AE4BC200D87FF6 /* Coordinator */,
 				7504A49C29AB819900732F40 /* Controller */,
 				7504A49D29AB81E300732F40 /* View */,
@@ -131,14 +130,12 @@
 		7504A49D29AB81E300732F40 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CCB6A1B829B075A60012E0E8 /* cell */,
-				CCB6A1B229B074F60012E0E8 /* CategoriesCollectionView.swift */,
-				CCB6A1B329B074F60012E0E8 /* CategoriesLabelAndImageView.swift */,
+				7552310529BCFDD600C9A02D /* SearchPage */,
+				7552310429BCFD9700C9A02D /* CategoriesPage */,
+				CCDDCEC929B74ACB0036AB35 /* HomePage */,
 				CCADCC8B29AE7D7000D87FF6 /* RecipeImageView.swift */,
 				CCB6A1AC29AF4A8D0012E0E8 /* RecipeViewCell.swift */,
-				CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */,
 				C34E530029B21F980043D066 /* RecipeTableView.swift */,
-				B3F6535A29BB650600821F21 /* SearchNotFoundView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,6 +148,25 @@
 				CCB6A1A829AF3DDC0012E0E8 /* CookModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7552310429BCFD9700C9A02D /* CategoriesPage */ = {
+			isa = PBXGroup;
+			children = (
+				CCB6A1B229B074F60012E0E8 /* CategoriesCollectionView.swift */,
+				CCB6A1B329B074F60012E0E8 /* CategoriesLabelAndImageView.swift */,
+				CCB6A1B829B075A60012E0E8 /* cell */,
+			);
+			path = CategoriesPage;
+			sourceTree = "<group>";
+		};
+		7552310529BCFDD600C9A02D /* SearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				CCE1DBD429B1014200061C24 /* SearchHeaderView.swift */,
+				B3F6535A29BB650600821F21 /* SearchNotFoundView.swift */,
+			);
+			path = SearchPage;
 			sourceTree = "<group>";
 		};
 		CCADCC7B29AE4BC200D87FF6 /* Coordinator */ = {
@@ -170,7 +186,7 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
-		CCDDCEC929B74ACB0036AB35 /* CompositionalLayout */ = {
+		CCDDCEC929B74ACB0036AB35 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
 				CCDDCECA29B74AEF0036AB35 /* LayoutBuilder.swift */,
@@ -178,7 +194,7 @@
 				CCDDCED029B85A910036AB35 /* Text.swift */,
 				CCDDCECC29B74B000036AB35 /* RecipeCollectionViewCell.swift */,
 			);
-			path = CompositionalLayout;
+			path = HomePage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
