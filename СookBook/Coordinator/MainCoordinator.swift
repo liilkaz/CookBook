@@ -61,10 +61,6 @@ final class MainCoordinator: Coordinator {
         }
     }
     
-//    func setActiveViewController(with viewController: UIViewController) {
-//        activeViewController = viewController
-//    }
-    
     func addController(type: TypeViewController, controller: Coordinating) {
         if viewControllers.keys.contains(type) {
             assertionFailure("There was an issue  adding viewController in MainCoordinator")
@@ -92,14 +88,10 @@ final class MainCoordinator: Coordinator {
             return RecipeInfoData(from: RecipeData(id: recipeId, title: "Hello", image: "", imageType: ""))
         }
         var recipeInfo = cookManager!.cookData.recipeDict[recipeId]
-//        if recipeInfo!.extendedIngredients.count == 0 {
-//            cookManager!.fetchRecipe(recipeId: recipeId)
-//        }
         recipeInfo?.favorite = cookManager!.cookData.isFavoriteRecipe(recipeId: recipeId)
         return recipeInfo!
     }
 }
-
 
 extension MainCoordinator: CookManagerDelegate {
     func didLoadImage(_ cookManager: CookManager, recipeId: Int, data: Data) {
@@ -125,15 +117,9 @@ extension MainCoordinator: CookManagerDelegate {
     }
     
     func didUpdateTypePopularRecipesData(_ cookManager: CookManager, recipes: [RecipeData], typeMeal: TypeMeal) {
-//        for item in recipes {
-//            
-//        }
         self.loadImages(recipes[0].id)
         self.cookManager!.cookData.setTypeMealRecipes(typeMeal: typeMeal, array: recipes)
-//        self.cookManager!.cookData.setPopularRecipes(array: recipes)
-//        self.cookManager!.cookData.setFavoriteRecipes(array: recipes)
-        print("didUpdatePopularRecipesData <<---- ToDo")
-        //self.updateActiveViewController()
+//        print("didUpdatePopularRecipesData <<---- ToDo")
     }
     
     func updateActiveViewController() {

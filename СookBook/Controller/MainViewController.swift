@@ -163,9 +163,7 @@ extension MainViewController: Coordinating {
         }
     }
     
-    func didUpdateImage(recipeId: Int) {
-        print(recipeId)
-    }
+    func didUpdateImage(recipeId: Int) {}
 }
 
 extension MainViewController: RecipeViewDelegate {

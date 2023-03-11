@@ -111,7 +111,7 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         ingridientAmountLabel.textAlignment = .right
         cell.addArrangedSubview(ingridientLabel)
         cell.addArrangedSubview(ingridientAmountLabel)
-        ingridientLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: cell.leadingAnchor, multiplier: 4).isActive = true
+        ingridientLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: cell.leadingAnchor, multiplier: 4).isActive = true//
         let checkButton = createCheckButton()
         cell.addSubview(checkButton)
         checkButton.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
@@ -177,7 +177,7 @@ extension RecipeViewController{
         scrollView.addSubview(mainStack)
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            mainStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+//            mainStack.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             mainStack.widthAnchor.constraint(equalTo: view.widthAnchor,multiplier: 0.90),
             mainStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2)
@@ -186,12 +186,12 @@ extension RecipeViewController{
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: mainStack.topAnchor,constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalToSystemSpacingAfter: mainStack.trailingAnchor, multiplier: -2)
+            titleLabel.trailingAnchor.constraint(equalTo: mainStack.safeAreaLayoutGuide.trailingAnchor)//
         ])
         mainStack.addSubview(tagsStack)
         NSLayoutConstraint.activate([
             tagsStack.heightAnchor.constraint(equalToConstant: 20),
-            tagsStack.topAnchor.constraint(equalToSystemSpacingBelow: mainStack.topAnchor, multiplier: 40),
+//            tagsStack.topAnchor.constraint(equalToSystemSpacingBelow: mainStack.topAnchor, multiplier: 40),
             tagsStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
             tagsStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor)
         ])

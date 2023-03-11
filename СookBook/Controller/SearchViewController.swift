@@ -82,9 +82,7 @@ final class SearchViewController: UIViewController, Coordinating {
         }
     }
     
-    func didUpdateImage(recipeId: Int) {
-//        print(recipeId)
-    }
+    func didUpdateImage(recipeId: Int) {}
 }
 
 //MARK: - UITextFieldDelegate

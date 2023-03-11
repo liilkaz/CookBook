@@ -70,7 +70,7 @@ final class CookManager {
     func performRequest(with type: TypeRequestURL, searchText: String = "", typeMeal: TypeMeal? = nil) {
         let strType = getRequestURL(with: type)
         let urlString = String(format: strType, searchText)
-        print("URL: \(urlString)")
+//        print("URL: \(urlString)")
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in

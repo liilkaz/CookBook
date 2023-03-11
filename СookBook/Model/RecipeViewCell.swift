@@ -46,8 +46,6 @@ class RecipeViewCell: UITableViewCell, RecipeViewDelegate {
         recipeView.reloadRecipe(recipe: recipe)
     }
 
-    func pushCheckFavorite(recipe: RecipeInfoData) {
-        print("RecipeViewCell")
-    }
+    func pushCheckFavorite(recipe: RecipeInfoData) {}
 
 }

@@ -85,7 +85,7 @@ struct CookModel {
         if array.isEmpty {
             return
         }
-        print("\(typeMeal.rawValue) Image \(array[0].image)")
+//        print("\(typeMeal.rawValue) Image \(array[0].image)")
         self.typeTopMealItem[typeMeal] = array[0].id
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
