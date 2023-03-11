@@ -15,7 +15,7 @@ final class SearchViewController: UIViewController, Coordinating {
     
     var coordinator: Coordinator?
     var recipeTableView: RecipeTableView?
-    //var searchHeaderView: SearchHeaderView?
+    let searchHeaderView = SearchHeaderView()
     var searchData:[Int] = []
     
     private let searchNotFoundView: SearchNotFoundView = {
@@ -25,19 +25,7 @@ final class SearchViewController: UIViewController, Coordinating {
         view.setText(START_NOT_FIND_TEXT)
         return view
     }()
-    
-    private let searchHeaderView: SearchHeaderView = {
-        let view = SearchHeaderView()
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 10
-        view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.gray.cgColor
-        view.searchButton.addTarget(SearchViewController.self, action: #selector(serchPressed), for: .touchUpInside)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = false
-        return view
-    }()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -45,10 +33,10 @@ final class SearchViewController: UIViewController, Coordinating {
         recipeTableView = RecipeTableView()
         recipeTableView!.isHidden = true
         
-       
-        view.addSubview(recipeTableView!)
         view.addSubview(searchHeaderView)
+        view.addSubview(recipeTableView!)
         view.addSubview(searchNotFoundView)
+        searchHeaderView.searchButton.addTarget(nil, action: #selector(serchPressed), for: .touchUpInside)
         
         recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
  
@@ -106,8 +94,7 @@ final class SearchViewController: UIViewController, Coordinating {
 extension SearchViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchHeaderView.searchField.endEditing(true)
-        return true
+        return searchHeaderView.searchField.endEditing(true)
     }
     
     private func textFieldShouldEditing(_ textField: UITextField) -> Bool {
