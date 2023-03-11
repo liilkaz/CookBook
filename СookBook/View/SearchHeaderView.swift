@@ -11,7 +11,7 @@ final class SearchHeaderView: UIView {
     
     let hStack: UIStackView = {
         $0.axis = .horizontal
-        //$0.distribution = .fillEqually
+        $0.distribution = .fillEqually
         $0.distribution = .fill
         $0.alignment = .fill
         $0.spacing = 10
@@ -20,21 +20,27 @@ final class SearchHeaderView: UIView {
     } (UIStackView())
     
     let searchField: UITextField = {
-        $0.textAlignment = .left
-//        $0.placeholder = "Search"
-        $0.textColor = .white
-        $0.attributedPlaceholder = NSAttributedString(
-            string: " Search ",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
-        )
+        let textField = UITextField()
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.textColor = .gray
+        textField.isHidden = false
+        textField.backgroundColor = .systemFill
+        textField.placeholder = "Search"
+        textField.minimumFontSize = 12
+        textField.tintColor = .gray
+        textField.layer.cornerRadius = 10
+        textField.borderStyle = .roundedRect
         
-        return $0
-    }(UITextField())
+        textField.font = .systemFont(ofSize: 20)
+        textField.textAlignment = .left
+        textField.contentMode = .scaleToFill
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
     
     let searchButton: UIButton = {
         $0.setBackgroundImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        $0.tintColor = .white
-        //$0.setImage(UIImage(named: "magnifyingglass"), for: .normal)
+        $0.tintColor = .lightGray
         $0.contentVerticalAlignment = .center
         $0.contentHorizontalAlignment = .center
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -55,18 +61,17 @@ final class SearchHeaderView: UIView {
         hStack.addArrangedSubview(searchField)
         hStack.addArrangedSubview(searchButton)
         setConstrains()
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setConstrains() {
         NSLayoutConstraint.activate([
-            hStack.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 10),
-            hStack.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: 0),
-            hStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            hStack.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10),
+            hStack.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: 0),
+            hStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             
             searchButton.widthAnchor.constraint(equalToConstant: 40),
             searchButton.heightAnchor.constraint(equalToConstant: 40),
-            //searchButton.trailingAnchor.constraint(equalTo: hStack.trailingAnchor, constant: -5) do not working
         ])
     }
-    
 }
