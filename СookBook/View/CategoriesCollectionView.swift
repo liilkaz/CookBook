@@ -42,7 +42,6 @@ class CategoriesCollectionView: UICollectionView {
     }
     func setCategoriresTitle(typeMealArray: [(TypeMeal, Int)]) {
         mealTypeList = typeMealArray
-        //mealTypeList = arrayString
     }
 }
 

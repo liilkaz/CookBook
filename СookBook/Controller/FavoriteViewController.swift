@@ -7,75 +7,60 @@
 
 import UIKit
 
-fileprivate let NOT_FIND_TEXT = "You haven't added any of your favorite recipes 😥"
-
-
 final class FavoriteViewController: UIViewController, Coordinating {
     
-    var coordinator: Coordinator?
-    var recipeTableView: RecipeTableView?
+    let NOT_FIND_TEXT = "You haven't added any of your favorite recipes 😥"
+    let recipeTableView = RecipeTableView()
+    let emptyFavoriteView = SearchNotFoundView()
 
-    private let emptryFavoriteView: SearchNotFoundView = {
-        let view = SearchNotFoundView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = false
-        view.setText(NOT_FIND_TEXT)
-        return view
-    }()
+    var coordinator: Coordinator?
     
     override func viewDidLoad() {
-        emptryFavoriteView.setText(NOT_FIND_TEXT)
         super.viewDidLoad()
-        view.backgroundColor = .white
-        recipeTableView = RecipeTableView()
-        view.addSubview(recipeTableView!)
-        view.addSubview(emptryFavoriteView)
-        recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            recipeTableView!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            recipeTableView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-        ])
-        NSLayoutConstraint.activate([
-            self.emptryFavoriteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            self.emptryFavoriteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            self.emptryFavoriteView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10),
-            self.emptryFavoriteView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10),
-        ])
-        
-        recipeTableView?.coordinator = coordinator
+        setupView()
+        setConstraints()
     }
+    
+    func setupView(){
+        view.backgroundColor = .white
+        view.addSubview(recipeTableView)
+        view.addSubview(emptyFavoriteView)
+        emptyFavoriteView.setText(NOT_FIND_TEXT)
+        recipeTableView.translatesAutoresizingMaskIntoConstraints = false
+        recipeTableView.coordinator = coordinator
+    }
+    
+    func setConstraints(){
+        NSLayoutConstraint.activate([
+            recipeTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            recipeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recipeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recipeTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+        ])
+        NSLayoutConstraint.activate([
+            self.emptyFavoriteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            self.emptyFavoriteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            self.emptyFavoriteView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10),
+            self.emptyFavoriteView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10),
+        ])
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         didUpdateView()
     }
     
     func isHiddenResult(_ flag: Bool) {
-        self.recipeTableView?.isHidden = !flag
-        self.emptryFavoriteView.isHidden = flag
+        self.recipeTableView.isHidden = !flag
+        self.emptyFavoriteView.isHidden = flag
     }
     
     func didUpdateView() {
-        recipeTableView?.arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
+        recipeTableView.arrayItems = (coordinator?.cookManager?.cookData.favoriteRecipes)!
         self.isHiddenResult(!(coordinator?.cookManager?.cookData.favoriteRecipes)!.isEmpty)
         DispatchQueue.main.async {
-            self.recipeTableView?.tableViewController.tableView.reloadData()
+            self.recipeTableView.tableViewController.tableView.reloadData()
         }
     }
-    func didUpdateImage(recipeId: Int) {
-       // <#code#>
-    }
+    func didUpdateImage(recipeId: Int) {}
 }
-
-extension UIView {
-    func addLabelText(_ text: String) {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 220, height: 55))
-        self.addSubview(label)
-        label.center = self.center
-        label.text = text
-        label.textColor = .black
-    }
-}
-

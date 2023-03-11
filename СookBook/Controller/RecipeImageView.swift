@@ -28,12 +28,10 @@ class InfoRecipeView: RecipeView {
             self.recipeImage.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.recipeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.recipeImage.rightAnchor.constraint(equalTo: self.rightAnchor),
-            //self.recipeImage.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
             self.favoriteImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            //self.favoriteImage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             self.favoriteImage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             self.favoriteImage.widthAnchor.constraint(equalToConstant: 30),
             self.favoriteImage.heightAnchor.constraint(equalTo: self.favoriteImage.widthAnchor),
@@ -48,7 +46,6 @@ class InfoRecipeView: RecipeView {
         NSLayoutConstraint.activate([
             self.subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             self.subtitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            //self.subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
         ])
         
         self.titleLabel.isHidden = true
@@ -64,12 +61,10 @@ class TrendRecipeView: RecipeView {
             self.recipeImage.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.recipeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -60),
             self.recipeImage.rightAnchor.constraint(equalTo: self.rightAnchor),
-            //self.recipeImage.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
             self.favoriteImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            //self.favoriteImage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             self.favoriteImage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             self.favoriteImage.widthAnchor.constraint(equalToConstant: 30),
             self.favoriteImage.heightAnchor.constraint(equalTo: self.favoriteImage.widthAnchor),
@@ -83,10 +78,8 @@ class TrendRecipeView: RecipeView {
 
         NSLayoutConstraint.activate([
             self.subtitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor),
-            //self.subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             self.subtitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5),
-            //self.subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
         ])
         self.backgroundColor = .white
         self.subtitleLabel.backgroundColor = .clear
@@ -116,12 +109,10 @@ class ShortRecipeView: RecipeView {
             self.recipeImage.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.recipeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -80),
             self.recipeImage.rightAnchor.constraint(equalTo: self.rightAnchor),
-            //self.recipeImage.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
             self.favoriteImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            //self.favoriteImage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             self.favoriteImage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             self.favoriteImage.widthAnchor.constraint(equalToConstant: 30),
             self.favoriteImage.heightAnchor.constraint(equalTo: self.favoriteImage.widthAnchor),
@@ -135,10 +126,8 @@ class ShortRecipeView: RecipeView {
 
         NSLayoutConstraint.activate([
             self.subtitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor),
-            //self.subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             self.subtitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5),
-            //self.subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
         ])
         self.backgroundColor = .white
         self.subtitleLabel.backgroundColor = .clear
@@ -234,7 +223,6 @@ class RecipeView: UIView {
         self.addSubview(self.recipeImage)
         self.addSubview(self.titleLabel)
         self.addSubview(self.subtitleLabel)
-        //self.backgroundColor = .red
         self.addSubview(self.favoriteImage)
         layoutConstraint()
 
@@ -250,12 +238,10 @@ class RecipeView: UIView {
             self.recipeImage.leftAnchor.constraint(equalTo: self.leftAnchor),
             self.recipeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.recipeImage.rightAnchor.constraint(equalTo: self.rightAnchor),
-            //self.recipeImage.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
             self.favoriteImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            //self.favoriteImage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             self.favoriteImage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             self.favoriteImage.widthAnchor.constraint(equalToConstant: 30),
             self.favoriteImage.heightAnchor.constraint(equalTo: self.favoriteImage.widthAnchor),
@@ -270,7 +256,6 @@ class RecipeView: UIView {
         NSLayoutConstraint.activate([
             self.subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             self.subtitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            //self.subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
         ])
     }
     
@@ -279,7 +264,6 @@ class RecipeView: UIView {
     }
     
     func setup() {
-        //self.backgroundColor = UIColor.white
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.cornerRadius = 20
         self.layer.shadowOpacity = 0.3
@@ -289,7 +273,7 @@ class RecipeView: UIView {
     }
     
     func updateImage(image: UIImage) {
-       self.recipeImage.image  = image
+       recipeImage.image  = image
     }
     
     func setSubText(recipe: RecipeInfoData) {

@@ -18,12 +18,12 @@ final class ListRecipeViewController: UIViewController, Coordinating {
         view.backgroundColor = .white
         title = typeMeal!.rawValue
         
-        setipUi()
+        setupUi()
         didUpdateView()
         
     }
     
-    func setipUi() {
+    func setupUi() {
         recipeTableView = RecipeTableView()
         recipeTableView!.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(recipeTableView!)
@@ -33,7 +33,6 @@ final class ListRecipeViewController: UIViewController, Coordinating {
             recipeTableView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recipeTableView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
-        //recipeTableView?.arrayItems = listResiperData
         recipeTableView?.coordinator = coordinator
     }
     
@@ -49,7 +48,5 @@ final class ListRecipeViewController: UIViewController, Coordinating {
         recipeTableView!.reloadCell()
     }
     
-    func didUpdateImage(recipeId: Int) {
-        print(recipeId)
-    }
+    func didUpdateImage(recipeId: Int) {}
 }

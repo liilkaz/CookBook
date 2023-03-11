@@ -35,18 +35,7 @@ public class TranderRecipeCollectionViewCell: RecipeCollectionViewCell {
 public class RecipeCollectionViewCell: UICollectionViewCell {
     let typeRecipeView:TypeRecipeView
     var recipeView: RecipeView
-    //? = {
-//
-//        $0.translatesAutoresizingMaskIntoConstraints = false
-//        return $0
-//    }(RecipeView(type: typeRecipeView))
-    
-//    var recipeView: RecipeView = {
-//        let view = RecipeView(type: .recipeDefault)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
-//
+
     override init(frame: CGRect) {
         fatalError("init(type:frame:) has not been implemented")
     }

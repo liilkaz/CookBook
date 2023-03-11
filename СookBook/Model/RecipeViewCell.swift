@@ -11,12 +11,6 @@ class RecipeViewCell: UITableViewCell, RecipeViewDelegate {
 
     var recipeView: RecipeView = {
         let view = RecipeView()
-//        view.backgroundColor = UIColor.red
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.cornerRadius = 20
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.shadowRadius = 10
-//        view.layer.shadowOffset = CGSize(width: 0, height: 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -61,7 +61,7 @@ public class TrendText: UICollectionViewCell {
      
      var text: UILabel = {
          let label: UILabel = UILabel()
-         label.text = "Trending now"
+         label.text = "Trending now 🔥"
          label.numberOfLines = 0
          label.translatesAutoresizingMaskIntoConstraints = false
          label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(Text.withSize)
