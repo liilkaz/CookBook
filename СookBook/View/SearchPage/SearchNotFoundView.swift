@@ -9,11 +9,8 @@ import UIKit
 
 class SearchNotFoundView: UIView {
     
-    // Чтобы добавить эту вью, её надо сделать самой нижней в иерархии и растянуть на весь экран (для того чтобы текст был по центру экрана)
-    
     private let maneLabel: UILabel = {
         let label = UILabel()
-        label.text = "We don't have the recipes you're looking for.\n\nTry looking for another 🔎"
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(30)

@@ -29,7 +29,6 @@ public class CellBuilder {
             cell.recipeView.recipeViewDelegate = cellClass as? any RecipeViewDelegate
             cell.recipeView.reloadRecipe(recipe: recipeInfo)
             cell.recipeView.updateImage(image: image)
-            //cell.container.typeView(type: lastRecipesCell)
             return cell
         } else {
             return UICollectionViewCell()
@@ -49,6 +48,4 @@ public class CellBuilder {
             return UICollectionViewCell()
         }
     }
-    
-    
 }

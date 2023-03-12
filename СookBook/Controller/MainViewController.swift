@@ -52,7 +52,6 @@ class MainViewController: UIViewController,UICollectionViewDelegate, UICollectio
                                                    indexPath: indexPath,
                                                    recipeInfoData: recipeInfoData as Any,
                                                    recipeImage: coordinator?.getImage(recipeInfoData!.id) as Any)
-    //        if let vc = (viewController as? UINavigationController)  {
             return cell
         }
         if indexPath.section == 3 {
@@ -62,7 +61,6 @@ class MainViewController: UIViewController,UICollectionViewDelegate, UICollectio
                                                    indexPath: indexPath,
                                                    recipeInfoData: recipeInfoData as Any,
                                                    recipeImage: coordinator?.getImage(recipeInfoData!.id) as Any)
-    //        if let vc = (viewController as? UINavigationController)  {
             return cell
         }
         if TEXT_SECTION.contains(indexPath.section) {
@@ -73,7 +71,6 @@ class MainViewController: UIViewController,UICollectionViewDelegate, UICollectio
         }
         
         return UICollectionViewCell()
-        //return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -95,7 +92,6 @@ class MainViewController: UIViewController,UICollectionViewDelegate, UICollectio
         collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
-        //collectionView.register(Cell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(TranderRecipeCollectionViewCell.self, forCellWithReuseIdentifier: "trendRecipe")
         collectionView.register(LastWatchRecipeCollectionViewCell.self, forCellWithReuseIdentifier: "lastWatchRecipe")
         collectionView.register(Text.self, forCellWithReuseIdentifier: "text")
@@ -130,7 +126,6 @@ class MainViewController: UIViewController,UICollectionViewDelegate, UICollectio
         self.view.backgroundColor = .white
         trendItems = (coordinator?.cookManager?.cookData.popularRecipes)!
         historyItems = (coordinator?.cookManager?.cookData.historyRecipes)!
-        // Do any additional setup after loading the view.
         self.view.addSubview(self.headerText)
         self.view.addSubview(self.collectionView)
         
@@ -168,9 +163,7 @@ extension MainViewController: Coordinating {
         }
     }
     
-    func didUpdateImage(recipeId: Int) {
-        print(recipeId)
-    }
+    func didUpdateImage(recipeId: Int) {}
 }
 
 extension MainViewController: RecipeViewDelegate {

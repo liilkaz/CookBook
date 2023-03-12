@@ -33,8 +33,6 @@ class TabBarController: UITabBarController {
         var vc: UIViewController?
         switch type {
         case .homeVC:
-//            vc = MainViewController()
-//            (vc as! MainViewController).coordinator = coordinator
             vc = MainViewController()
             (vc as! MainViewController).coordinator = coordinator
             vc?.tabBarItem.title = "Home"
@@ -64,7 +62,7 @@ class TabBarController: UITabBarController {
             vc?.tabBarItem.image = UIImage(systemName: "heart")
             self.coordinator?.addController(type: .favoriteVC, controller: vc as! Coordinating)
         default:
-            print("Error!!")
+            print("Error")
         }
         return vc!
     }

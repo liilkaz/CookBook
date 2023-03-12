@@ -22,12 +22,10 @@ class CategoriesViewController: UIViewController, Coordinating {
         categoriesCollectionView.reloadData()
     }
     
-    func didUpdateView() {
-    }
+    func didUpdateView() {}
     
-    func didUpdateImage(recipeId: Int) {
-        print(recipeId)
-    }
+    func didUpdateImage(recipeId: Int) {}
+    
     private func setConstraints() {
         NSLayoutConstraint.activate([
             categoriesLabelAndImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -42,6 +40,8 @@ class CategoriesViewController: UIViewController, Coordinating {
         ])
     }
 }
+
+//MARK: - CategoriesCollectionViewDelegate
 
 extension CategoriesViewController: CategoriesCollectionViewDelegate {
     func pushCategorieList(type: TypeMeal) {
