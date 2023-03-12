@@ -55,7 +55,7 @@ struct CookModel {
         searchRecipes = []
         for item in array {
             if !self.recipeDict.keys.contains(item.id) {
-                self.recipeDict[item.id] = RecipeInfoData(from: item)
+                //self.recipeDict[item.id] = RecipeInfoData(from: item)
             }
             
             self.searchRecipes.append(item.id)
