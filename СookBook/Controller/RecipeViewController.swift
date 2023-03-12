@@ -54,6 +54,21 @@ final class RecipeViewController: UIViewController , RecipeViewDelegate, Coordin
         return $0
     }(UILabel())
     
+    let structTitle: UILabel = {
+        let title = UILabel()
+        title.text = "Ingredients:"
+        title.textColor = .black
+        return title
+    }()
+    
+    let instructionText: UILabel = {
+        let instruction = UILabel()
+        instruction.numberOfLines = 0
+        instruction.textColor = .black
+        instruction.translatesAutoresizingMaskIntoConstraints = false
+        return instruction
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -214,11 +229,24 @@ extension RecipeViewController{
         line.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         line.topAnchor.constraint(equalTo: tagsStack.bottomAnchor,constant: 20).isActive = true
         line.backgroundColor = .gray
+        
+        mainStack.addSubview(structTitle)//
+        structTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            structTitle.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 10)])
+        
+        
         mainStack.addSubview(recipeIngerdientStack)
         NSLayoutConstraint.activate([
-            recipeIngerdientStack.topAnchor.constraint(equalToSystemSpacingBelow: line.bottomAnchor, multiplier: 1),
+            recipeIngerdientStack.topAnchor.constraint(equalToSystemSpacingBelow: structTitle.bottomAnchor, multiplier: 1),
             recipeIngerdientStack.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor),
             recipeIngerdientStack.leadingAnchor.constraint(equalTo: mainStack.leadingAnchor),
+        ])
+        
+        mainStack.addSubview(instructionText)
+        instructionText.text = recipeInfo.instructions
+        NSLayoutConstraint.activate([
+            instructionText.topAnchor.constraint(equalTo: recipeIngerdientStack.bottomAnchor, constant: 10)
         ])
     }
 }
